@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#090a0d" />
   <title>HANZŌ Jápanese | Menú Digital</title>
 
-  <!-- Tipografías editoriales y legibles en pantalla móvil -->
+  <!-- Tipografías editoriales y modernas -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Noto+Serif+JP:wght@500;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -70,7 +70,7 @@
       visibility: hidden;
     }
 
-    /* Espacio para logotipo en la pantalla de entrada y portada */
+    /* Espacio para logotipo del restaurante */
     .logo-slot {
       width: 92px;
       height: 92px;
@@ -142,7 +142,7 @@
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.65);
     }
 
-    /* Aviso flotante al agregar platillo o copiar dirección */
+    /* Toast visual rápido */
     #toast-msg {
       position: fixed;
       top: 14px;
@@ -178,8 +178,7 @@
     .hero {
       padding: 2rem 1.2rem 1.8rem;
       text-align: center;
-      background:
-        linear-gradient(180deg, rgba(185, 28, 28, 0.24) 0%, rgba(11, 13, 18, 0.98) 100%);
+      background: linear-gradient(180deg, rgba(185, 28, 28, 0.24) 0%, rgba(11, 13, 18, 0.98) 100%);
       border-bottom: 1px solid var(--line-gold);
     }
 
@@ -220,7 +219,6 @@
       margin-top: 0.3rem;
     }
 
-    /* Datos operativos en tarjetas móviles */
     .info-stack {
       display: grid;
       grid-template-columns: 1fr;
@@ -251,7 +249,7 @@
       color: var(--ivory);
     }
 
-    /* Botonera principal para móviles: Llamar (marcador) + Mapa + Copiar dirección */
+    /* Botón directo al marcador del móvil + mapa + copiar dirección */
     .action-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -459,85 +457,127 @@
       font-size: 0.84rem;
     }
 
-    /* Bloque de publicidad y servicios ampliado */
-    .ad-showcase {
-      background: linear-gradient(160deg, rgba(185, 28, 28, 0.18), rgba(20, 23, 31, 0.98));
-      border-top: 1px solid var(--line-gold);
-      padding: 2.2rem 1.25rem;
+    /* Bloque de publicidad al final con espacio para logotipo y servicios */
+    .ad-banner-pro {
+      background:
+        radial-gradient(circle at top, rgba(223, 177, 75, 0.14), transparent 60%),
+        linear-gradient(165deg, #1a1518 0%, #12151d 55%, #0c0e13 100%);
+      border-top: 2px solid var(--gold);
+      padding: 2.3rem 1.25rem;
       text-align: center;
     }
 
-    .ad-logo-space {
-      width: 72px;
-      height: 72px;
-      margin: 0 auto 0.85rem;
-      border-radius: 14px;
-      border: 1px dashed var(--gold);
-      background: rgba(9, 10, 13, 0.65);
+    .ad-badge {
+      display: inline-block;
+      font-size: 0.64rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #090a0d;
+      background: var(--gold);
+      font-weight: 700;
+      padding: 3px 11px;
+      border-radius: 999px;
+      margin-bottom: 0.9rem;
+    }
+
+    /* Espacio reservado para el logotipo de tu marca en la publicidad */
+    .ad-logo-box {
+      width: 84px;
+      height: 84px;
+      margin: 0 auto 0.95rem;
+      border-radius: 18px;
+      border: 1.5px dashed var(--gold);
+      background: rgba(9, 10, 13, 0.75);
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 0.62rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
       color: var(--gold-soft);
+      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.5);
       overflow: hidden;
     }
 
-    .ad-logo-space img {
+    .ad-logo-box img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    .ad-showcase h3 {
-      font-size: 1.4rem;
+    .ad-logo-box small {
+      font-size: 0.58rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .ad-banner-pro h3 {
+      font-size: 1.5rem;
       color: var(--gold-soft);
-      margin-bottom: 0.45rem;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
     }
 
-    .ad-showcase p {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-bottom: 0.9rem;
-    }
-
-    .services-tags {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 6px;
-      margin-bottom: 1rem;
-    }
-
-    .service-pill {
-      font-size: 0.7rem;
+    .ad-banner-pro .ad-lead {
+      font-size: 0.82rem;
       color: var(--ivory);
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--line-soft);
-      padding: 4px 10px;
-      border-radius: 999px;
+      max-width: 420px;
+      margin: 0 auto 1rem;
     }
 
-    .ad-phone {
-      font-size: 0.96rem;
+    .service-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      text-align: left;
+      margin-bottom: 1.15rem;
+    }
+
+    .service-item {
+      background: rgba(22, 25, 33, 0.9);
+      border: 1px solid var(--line-soft);
+      border-left: 2px solid var(--gold);
+      border-radius: 8px;
+      padding: 0.65rem 0.75rem;
+      font-size: 0.74rem;
+      color: var(--ivory);
+    }
+
+    .service-item strong {
+      display: block;
+      color: var(--gold-soft);
+      font-size: 0.75rem;
+    }
+
+    .service-item span {
+      color: var(--muted);
+      font-size: 0.68rem;
+    }
+
+    .ad-contact-phone {
+      font-size: 1rem;
       font-weight: 700;
       color: var(--gold);
-      letter-spacing: 1px;
-      margin-bottom: 1rem;
+      letter-spacing: 1.2px;
+      margin-bottom: 0.95rem;
     }
 
-    .ad-wa-btn {
-      display: inline-block;
-      padding: 12px 22px;
-      border-radius: 9px;
-      background: var(--gold);
+    .ad-cta-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 340px;
+      padding: 13px 20px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--gold-soft), var(--gold));
       color: #090a0d;
-      font-weight: 700;
-      font-size: 0.76rem;
-      letter-spacing: 1.3px;
+      font-weight: 800;
+      font-size: 0.78rem;
+      letter-spacing: 1.4px;
       text-transform: uppercase;
       text-decoration: none;
+      box-shadow: 0 6px 20px rgba(223, 177, 75, 0.25);
     }
 
     footer {
@@ -620,17 +660,17 @@
   <!-- Aviso rápido en pantalla -->
   <div id="toast-msg">Listo</div>
 
-  <!-- Audio opcional MP3 local: si subes hanzo-japan.mp3 a la raíz del repo, se usará automáticamente -->
+  <!-- Audio opcional MP3 local: si subes hanzo-japan.mp3 a la raíz del repo, descomenta <source> -->
   <audio id="local-mp3" loop preload="none">
-    <source src="./hanzo-japan.mp3" type="audio/mpeg">
+    <!-- <source src="./hanzo-japan.mp3" type="audio/mpeg"> -->
   </audio>
 
-  <!-- Botón flotante de música/sonido japonés -->
-  <button id="audio-btn" title="Sonido / Música">♪</button>
+  <!-- Botón flotante para pausar/activar música japonesa -->
+  <button id="audio-btn" title="Música japonesa">♪</button>
 
   <!-- Pantalla inicial con espacio para logotipo -->
   <div id="intro-curtain">
-    <!-- Espacio para logotipo: reemplaza el contenido interno por <img src="./logo-hanzo.png" alt="Logo HANZŌ"> -->
+    <!-- Espacio para logo de HANZŌ: reemplaza por <img src="./logo-hanzo.png" alt="Logo HANZŌ"> -->
     <div class="logo-slot" id="intro-logo">
       <span class="logo-placeholder-kanji">半蔵</span>
       <span class="logo-placeholder-txt">LOGO</span>
@@ -647,9 +687,9 @@
 
   <!-- Contenedor móvil -->
   <div class="mobile-shell">
-    <!-- Portada con espacio para logotipo y botones de acción móvil -->
+    <!-- Portada con espacio para logotipo y botón directo al marcador del móvil -->
     <header class="hero">
-      <!-- Espacio para logotipo en portada: pon aquí <img src="./logo-hanzo.png" alt="Logo HANZŌ"> cuando lo subas -->
+      <!-- Espacio para logo en portada: reemplaza por <img src="./logo-hanzo.png" alt="Logo HANZŌ"> -->
       <div class="logo-slot" id="hero-logo">
         <span class="logo-placeholder-kanji">半蔵</span>
         <span class="logo-placeholder-txt">TU LOGO</span>
@@ -675,7 +715,7 @@
         </div>
       </div>
 
-      <!-- Botón directo al marcador telefónico del celular + Mapa + Copiar dirección -->
+      <!-- Botón que abre directo el marcador telefónico del celular -->
       <div class="action-grid">
         <a href="tel:+523346662956" class="call-btn">
           Llamar ahora · 33 4666 2956
@@ -716,37 +756,25 @@
       </div>
 
       <div class="dish-box" data-keywords="brochetas queso platano camaron">
-        <div class="dish-head">
-          <span class="dish-title">Brochetas</span>
-          <span class="dish-cost">Pz $30 · Ord $85</span>
-        </div>
+        <div class="dish-head"><span class="dish-title">Brochetas</span><span class="dish-cost">Pz $30 · Ord $85</span></div>
         <p class="dish-note">Queso, plátano y queso, camarón y queso.</p>
         <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Brochetas (Orden)', 85)">+ Agregar ($85)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="hontaka empanizado chiles gueros tampico queso">
-        <div class="dish-head">
-          <span class="dish-title">Hontaka Empanizado</span>
-          <span class="dish-cost">Pz $35 · Ord $100</span>
-        </div>
+        <div class="dish-head"><span class="dish-title">Hontaka Empanizado</span><span class="dish-cost">Pz $35 · Ord $100</span></div>
         <p class="dish-note">Chiles güeros empanizados rellenos de ensalada tampico y queso.</p>
         <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Hontaka Empanizado (Orden)', 100)">+ Agregar ($100)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="hontaka bekon tocino chiles gueros queso camaron">
-        <div class="dish-head">
-          <span class="dish-title">Hontaka Bēkon</span>
-          <span class="dish-cost">Pz $30 · Ord $80</span>
-        </div>
+        <div class="dish-head"><span class="dish-title">Hontaka Bēkon</span><span class="dish-cost">Pz $30 · Ord $80</span></div>
         <p class="dish-note">Chiles güeros cubierto con tocino rellenos de queso y camarón.</p>
         <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Hontaka Bēkon (Orden)', 80)">+ Agregar ($80)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="sopa udon pasta miso col pollo res champinon">
-        <div class="dish-head">
-          <span class="dish-title">Sopa Udon</span>
-          <span class="dish-cost">$75</span>
-        </div>
+        <div class="dish-head"><span class="dish-title">Sopa Udon</span><span class="dish-cost">$75</span></div>
         <p class="dish-note">Pasta, miso, col, pollo, res y champiñón.</p>
         <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Sopa Udon', 75)">+ Agregar ($75)</button></div>
       </div>
@@ -1067,29 +1095,44 @@
 
     <div id="no-results">No encontramos platillos con esa búsqueda.</div>
 
-    <!-- Publicidad ampliada con espacio para logotipo, eventos y cotización por WhatsApp -->
-    <div class="ad-showcase">
-      <!-- Espacio para tu logotipo de marca: pon aquí <img src="./logo-marca.png" alt="Logo"> cuando lo tengas -->
-      <div class="ad-logo-space" id="brand-logo-slot">
-        <span>TU LOGO</span>
+    <!-- Publicidad final con espacio para logotipo, servicios ampliados y WhatsApp -->
+    <div class="ad-banner-pro">
+      <div class="ad-badge">Diseño Digital en Vivo</div>
+
+      <!-- Espacio para tu logotipo: reemplaza por <img src="./tu-logo.png" alt="Logo"> cuando lo subas -->
+      <div class="ad-logo-box" id="publicity-logo">
+        <small>TU LOGO</small>
       </div>
 
       <h3 class="title-jp">¿Quieres un Menú Web Así para tu Negocio?</h3>
-      <p>Creamos experiencias digitales a medida para restaurantes, dark kitchens, cafeterías y celebraciones especiales:</p>
+      <p class="ad-lead">
+        Llevamos tu marca y tus celebraciones a otro nivel con sitios rápidos, listos para celular, mapas, botones directos y código QR.
+      </p>
 
-      <div class="services-tags">
-        <span class="service-pill">Menús Digitales y QR</span>
-        <span class="service-pill">Invitaciones de XV Años</span>
-        <span class="service-pill">Bodas</span>
-        <span class="service-pill">Cumpleaños</span>
-        <span class="service-pill">Aniversarios y Eventos</span>
+      <div class="service-grid">
+        <div class="service-item">
+          <strong>Menús Digitales</strong>
+          <span>Restaurantes, sushi, tacos y cafés</span>
+        </div>
+        <div class="service-item">
+          <strong>Invitaciones de XV</strong>
+          <span>Cuenta regresiva, mapas y RSVP</span>
+        </div>
+        <div class="service-item">
+          <strong>Bodas</strong>
+          <span>Itinerario, mesa de regalos y fotos</span>
+        </div>
+        <div class="service-item">
+          <strong>Cumpleaños y Más</strong>
+          <span>Fiestas, aniversarios y eventos</span>
+        </div>
       </div>
 
-      <div class="ad-phone">+52 1 314 247 8637</div>
+      <div class="ad-contact-phone">+52 1 314 247 8637</div>
       <a
-        href="https://wa.me/5213142478637?text=Hola%2C%20vi%20la%20muestra%20de%20HANZ%C5%8C%20y%20me%20gustar%C3%ADa%20cotizar%20un%20men%C3%BA%20web%20o%20una%20invitaci%C3%B3n%20digital%20(XV%20a%C3%B1os%2C%20boda%2C%20cumplea%C3%B1os%20o%20evento)."
+        href="https://wa.me/5213142478637?text=Hola%2C%20vi%20la%20muestra%20de%20HANZ%C5%8C%20y%20quiero%20cotizar%20un%20men%C3%BA%20web%20o%20una%20invitaci%C3%B3n%20digital%20(XV%20a%C3%B1os%2C%20bodas%2C%20cumplea%C3%B1os%2C%20eventos)."
         target="_blank"
-        class="ad-wa-btn"
+        class="ad-cta-whatsapp"
       >
         Cotizar por WhatsApp
       </a>
@@ -1097,7 +1140,7 @@
 
     <footer>
       <p>HANZŌ Jápanese · C. Emiliano Zapata 383, Las Liebres · Tel: 33 4666 2956</p>
-      <p style="margin-top: 0.3rem;">Diseño y desarrollo móvil por <a href="https://github.com/VexaDigital" target="_blank">VexaDigital</a></p>
+      <p style="margin-top: 0.3rem;">Desarrollado por <a href="https://github.com/VexaDigital" target="_blank">VexaDigital</a></p>
     </footer>
   </div>
 
@@ -1114,11 +1157,9 @@
   </div>
 
   <script>
-    // Teléfono de domicilio de HANZŌ Jápanese (52 + 10 dígitos)
     const hanzoWhatsapp = "523346662956";
     const hanzoAddress = "C. Emiliano Zapata 383, Las Liebres";
 
-    // Aviso visual en pantalla
     function showToast(msg) {
       const toast = document.getElementById('toast-msg');
       if (!toast) return;
@@ -1127,7 +1168,6 @@
       setTimeout(() => toast.classList.remove('show'), 1800);
     }
 
-    // Copiar dirección con un toque en móvil
     function copyAddress() {
       navigator.clipboard.writeText(hanzoAddress).then(() => {
         showToast('Dirección copiada');
@@ -1136,73 +1176,86 @@
       });
     }
 
-    // Sonido ambiental japonés (Web Audio API sin depender de archivos externos ni 403) + soporte para ./hanzo-japan.mp3
+    // Música japonesa: usa ./hanzo-japan.mp3 si está habilitado, o sintetizador pentatónico japonés en Web Audio API
     const mp3El = document.getElementById('local-mp3');
     const audioBtn = document.getElementById('audio-btn');
     let audioCtx = null;
     let melodyTimer = null;
     let soundActive = false;
 
-    // Frecuencias inspiradas en escala japonesa Yo/Insen (Hz)
-    const jpNotes = [293.66, 329.63, 440.00, 493.88, 587.33, 440.00, 329.63];
-    let noteIndex = 0;
+    // Escala japonesa In / Hirajoshi en Hz para tono atmosférico oriental
+    const jpScale = [293.66, 311.13, 392.00, 440.00, 466.16, 587.33, 440.00, 392.00];
+    let stepIdx = 0;
 
-    function playKotoPluck(freq) {
+    function playOrientalTone(freq) {
       if (!audioCtx) return;
       const now = audioCtx.currentTime;
+
       const osc = audioCtx.createOscillator();
+      const harmonic = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
 
       osc.type = 'triangle';
       osc.frequency.setValueAtTime(freq, now);
 
+      harmonic.type = 'sine';
+      harmonic.frequency.setValueAtTime(freq * 2, now);
+
+      const harmGain = audioCtx.createGain();
+      harmGain.gain.setValueAtTime(0.015, now);
+
       gain.gain.setValueAtTime(0.0001, now);
-      gain.gain.exponentialRampToValueAtTime(0.06, now + 0.02);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.15);
+      gain.gain.exponentialRampToValueAtTime(0.075, now + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.35);
 
       osc.connect(gain);
+      harmonic.connect(harmGain);
+      harmGain.connect(gain);
       gain.connect(audioCtx.destination);
 
       osc.start(now);
-      osc.stop(now + 1.2);
+      harmonic.start(now);
+      osc.stop(now + 1.4);
+      harmonic.stop(now + 1.4);
     }
 
-    function startAmbientSound() {
-      // Si el usuario subió hanzo-japan.mp3 y se puede cargar, lo intenta primero
+    function startSound() {
       if (mp3El && mp3El.querySelector('source')) {
         mp3El.play().then(() => {
           soundActive = true;
           if (audioBtn) audioBtn.textContent = '❚❚';
         }).catch(() => {
-          startSynthLoop();
+          startSynth();
         });
       } else {
-        startSynthLoop();
+        startSynth();
       }
     }
 
-    function startSynthLoop() {
+    function startSynth() {
       const AudioContextClass = window.AudioContext || window.webkitAudioContext;
       if (!AudioContextClass) return;
 
       if (!audioCtx) audioCtx = new AudioContextClass();
-      if (audioCtx.state === 'suspended') audioCtx.resume();
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
 
       clearInterval(melodyTimer);
-      playKotoPluck(jpNotes[noteIndex % jpNotes.length]);
-      noteIndex++;
+      playOrientalTone(jpScale[stepIdx % jpScale.length]);
+      stepIdx++;
 
       melodyTimer = setInterval(() => {
         if (!soundActive) return;
-        playKotoPluck(jpNotes[noteIndex % jpNotes.length]);
-        noteIndex++;
-      }, 950);
+        playOrientalTone(jpScale[stepIdx % jpScale.length]);
+        stepIdx++;
+      }, 900);
 
       soundActive = true;
       if (audioBtn) audioBtn.textContent = '❚❚';
     }
 
-    function stopAmbientSound() {
+    function stopSound() {
       soundActive = false;
       clearInterval(melodyTimer);
       if (mp3El) mp3El.pause();
@@ -1213,18 +1266,18 @@
       const curtain = document.getElementById('intro-curtain');
       if (curtain) {
         curtain.classList.add('hidden');
-        setTimeout(() => { curtain.style.display = 'none'; }, 720);
+        setTimeout(() => { curtain.style.display = 'none'; }, 700);
       }
-      startAmbientSound();
+      startSound();
     }
 
     if (audioBtn) {
       audioBtn.addEventListener('click', () => {
         if (soundActive) {
-          stopAmbientSound();
-          showToast('Sonido pausado');
+          stopSound();
+          showToast('Música pausada');
         } else {
-          startAmbientSound();
+          startSound();
           showToast('Música japonesa activa');
         }
       });
@@ -1283,7 +1336,7 @@
       }
     }
 
-    // Pedido rápido para enviar por WhatsApp a HANZŌ
+    // Pedido rápido para WhatsApp
     let orderList = [];
 
     function addItem(name, price) {
