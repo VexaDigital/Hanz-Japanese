@@ -1,1 +1,1229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HANZŌ Jápanese | Menú Supremo</title>
 
+  <!-- Tipografías con carácter editorial y moderno -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Noto+Serif+JP:wght@500;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Paleta oficial respetando negro profundo, rojo carmesí, dorado y marfil */
+    :root {
+      --bg-obsidian: #090a0d;
+      --bg-charcoal: #12141a;
+      --bg-card: #171a22;
+      --bg-card-elevated: #1e222d;
+      --crimson: #b91c1c;
+      --crimson-bright: #dc2626;
+      --gold: #dfb14b;
+      --gold-soft: #f5df9e;
+      --ivory: #f6f5f0;
+      --muted: #a6abb5;
+      --line-gold: rgba(223, 177, 75, 0.34);
+      --line-soft: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Reset general */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Scroll suave */
+    html { scroll-behavior: smooth; }
+
+    /* Fondo base con textura sutil de ondas japonesas (seigaiha) en rojo y dorado tenue */
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-obsidian);
+      background-image:
+        radial-gradient(circle at 50% 0%, rgba(185, 28, 28, 0.22), transparent 55%),
+        repeating-radial-gradient(circle at 0 0, transparent 0, var(--bg-obsidian) 18px),
+        repeating-linear-gradient(rgba(223, 177, 75, 0.03) 0 1px, transparent 1px 18px);
+      color: var(--ivory);
+      line-height: 1.55;
+      overflow-x: hidden;
+      padding-bottom: 84px; /* Espacio para barra inferior de pedido */
+    }
+
+    .title-jp {
+      font-family: 'Cinzel', 'Noto Serif JP', serif;
+    }
+
+    /* Cortina de entrada temática japonesa */
+    #intro-curtain {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background:
+        radial-gradient(circle at 50% 35%, rgba(185, 28, 28, 0.28), transparent 60%),
+        linear-gradient(180deg, #0d0f14 0%, #07080a 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      transition: opacity 0.75s ease, visibility 0.75s ease;
+    }
+
+    #intro-curtain.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    /* Sello circular rojo y dorado */
+    .hanko-seal {
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      background: rgba(185, 28, 28, 0.22);
+      color: var(--gold-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.1rem;
+      box-shadow: 0 0 25px rgba(223, 177, 75, 0.2);
+    }
+
+    .enter-btn {
+      margin-top: 1.6rem;
+      padding: 13px 32px;
+      background: linear-gradient(135deg, var(--crimson-bright), var(--crimson));
+      color: var(--ivory);
+      border: 1px solid var(--gold);
+      border-radius: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 6px 22px rgba(185, 28, 28, 0.35);
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .enter-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+    }
+
+    /* Botón flotante de música japonesa */
+    #audio-btn {
+      position: fixed;
+      bottom: 86px;
+      right: 16px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(23, 26, 34, 0.95);
+      border: 1px solid var(--gold);
+      color: var(--gold-soft);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 1200;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Contenedor central tipo aplicación móvil */
+    .shell {
+      max-width: 580px;
+      margin: 0 auto;
+      background: rgba(12, 14, 19, 0.95);
+      border-left: 1px solid var(--line-soft);
+      border-right: 1px solid var(--line-soft);
+      box-shadow: 0 0 60px rgba(0, 0, 0, 0.85);
+    }
+
+    /* Encabezado / Hero de Hanzō */
+    .hero {
+      position: relative;
+      padding: 2.3rem 1.3rem 1.8rem;
+      text-align: center;
+      background:
+        linear-gradient(180deg, rgba(185, 28, 28, 0.22) 0%, rgba(12, 14, 19, 0.96) 100%),
+        url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=900&q=75') center/cover no-repeat;
+      border-bottom: 1px solid var(--line-gold);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(9, 10, 13, 0.72) 0%, rgba(12, 14, 19, 0.97) 100%);
+      z-index: 0;
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .kicker {
+      display: inline-block;
+      font-size: 0.68rem;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--gold-soft);
+      border: 1px solid var(--line-gold);
+      background: rgba(9, 10, 13, 0.7);
+      padding: 4px 14px;
+      border-radius: 999px;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      letter-spacing: 3px;
+      color: var(--ivory);
+      line-height: 1.05;
+      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero .brand-sub {
+      font-size: 0.88rem;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-top: 0.3rem;
+    }
+
+    .kanji-line {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.95rem;
+      letter-spacing: 6px;
+      color: var(--crimson-bright);
+      margin-top: 0.35rem;
+    }
+
+    /* Cuadrícula de información clave: horarios, domicilio y dirección */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 1.4rem;
+      text-align: left;
+    }
+
+    .meta-card {
+      background: rgba(23, 26, 34, 0.92);
+      border: 1px solid var(--line-soft);
+      border-left: 3px solid var(--crimson-bright);
+      border-radius: 8px;
+      padding: 0.8rem 0.95rem;
+      font-size: 0.79rem;
+    }
+
+    .meta-card strong {
+      display: block;
+      font-size: 0.68rem;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.15rem;
+    }
+
+    .meta-card span {
+      color: var(--ivory);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1.2rem;
+    }
+
+    .btn-crimson {
+      padding: 10px 18px;
+      border-radius: 8px;
+      background: var(--crimson-bright);
+      color: var(--ivory);
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .btn-gold-ghost {
+      padding: 10px 18px;
+      border-radius: 8px;
+      background: rgba(223, 177, 75, 0.12);
+      color: var(--gold-soft);
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: 1px solid var(--line-gold);
+    }
+
+    /* Barra sticky de búsqueda y categorías */
+    .controls-sticky {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: rgba(11, 13, 18, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line-gold);
+      padding: 0.75rem 1rem;
+    }
+
+    .search-box {
+      width: 100%;
+      padding: 10px 13px;
+      border-radius: 8px;
+      border: 1px solid var(--line-soft);
+      background: var(--bg-card);
+      color: var(--ivory);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.84rem;
+      margin-bottom: 0.65rem;
+      outline: none;
+    }
+
+    .search-box:focus {
+      border-color: var(--gold);
+    }
+
+    .tabs-row {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .tabs-row::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+      flex: 0 0 auto;
+      padding: 6px 13px;
+      border-radius: 999px;
+      border: 1px solid var(--line-soft);
+      background: var(--bg-card);
+      color: var(--muted);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active {
+      background: var(--gold);
+      color: #090a0d;
+      border-color: var(--gold);
+      font-weight: 700;
+    }
+
+    /* Secciones del menú */
+    .menu-block {
+      padding: 1.7rem 1.15rem;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .block-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 1px solid var(--line-gold);
+    }
+
+    .block-head h2 {
+      font-size: 1.45rem;
+      color: var(--gold-soft);
+      letter-spacing: 1px;
+    }
+
+    .block-head span {
+      font-size: 0.68rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--crimson-bright);
+      font-weight: 700;
+    }
+
+    .sub-heading {
+      font-size: 0.72rem;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin: 1.1rem 0 0.6rem;
+    }
+
+    /* Tarjeta de cada platillo */
+    .item-card {
+      background: var(--bg-card);
+      border: 1px solid var(--line-soft);
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      margin-bottom: 0.7rem;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .item-card:hover {
+      background: var(--bg-card-elevated);
+      border-color: var(--line-gold);
+    }
+
+    .item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .item-name {
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--ivory);
+    }
+
+    .item-price {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    .item-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.28rem;
+    }
+
+    .item-foot {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 0.55rem;
+    }
+
+    .add-btn {
+      padding: 5px 11px;
+      border-radius: 6px;
+      border: 1px solid var(--line-gold);
+      background: rgba(223, 177, 75, 0.08);
+      color: var(--gold-soft);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .add-btn:hover {
+      background: var(--gold);
+      color: #090a0d;
+    }
+
+    /* Mensaje cuando la búsqueda no encuentra coincidencias */
+    #empty-search {
+      display: none;
+      text-align: center;
+      padding: 2.2rem 1rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* Bloque de cotización para clientes que quieran este nivel para su negocio */
+    .vexa-quote-box {
+      background: linear-gradient(155deg, rgba(185, 28, 28, 0.16), rgba(23, 26, 34, 0.98));
+      border-top: 1px solid var(--line-gold);
+      padding: 2.2rem 1.3rem;
+      text-align: center;
+    }
+
+    .vexa-quote-box h3 {
+      font-size: 1.45rem;
+      color: var(--gold-soft);
+      margin-bottom: 0.4rem;
+    }
+
+    .vexa-quote-box p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.85rem;
+    }
+
+    .vexa-phone {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+
+    .vexa-btn {
+      display: inline-block;
+      padding: 11px 22px;
+      border-radius: 8px;
+      background: var(--gold);
+      color: #090a0d;
+      font-weight: 700;
+      font-size: 0.76rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    /* Pie de página */
+    footer {
+      background: #07080a;
+      padding: 1.4rem 1rem;
+      text-align: center;
+      font-size: 0.73rem;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    /* Barra inferior fija para enviar pedido a domicilio por WhatsApp */
+    .order-bar {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 580px;
+      background: rgba(15, 17, 23, 0.98);
+      border-top: 1px solid var(--line-gold);
+      padding: 0.7rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      z-index: 1100;
+      box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.75);
+    }
+
+    .order-summary {
+      font-size: 0.78rem;
+    }
+
+    .order-summary strong {
+      color: var(--gold-soft);
+      display: block;
+    }
+
+    .order-summary span {
+      color: var(--muted);
+      font-size: 0.72rem;
+    }
+
+    .order-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .clear-btn {
+      padding: 8px 10px;
+      border-radius: 7px;
+      border: 1px solid var(--line-soft);
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.72rem;
+      cursor: pointer;
+    }
+
+    .send-order-btn {
+      padding: 9px 14px;
+      border-radius: 7px;
+      border: none;
+      background: var(--crimson-bright);
+      color: var(--ivory);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .hidden-el { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <!-- Pista musical japonesa local: sube hanzo-japan.mp3 a la raíz de tu repo en GitHub Pages -->
+  <audio id="jp-audio" loop preload="auto">
+    <source src="./hanzo-japan.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Botón flotante para pausar/reanudar música japonesa -->
+  <button id="audio-btn" title="Música japonesa">♪</button>
+
+  <!-- Cortina inicial temática -->
+  <div id="intro-curtain">
+    <div class="hanko-seal">半蔵</div>
+    <p class="kicker">Cocina Japonesa</p>
+    <h1 class="title-jp" style="font-size: 2.5rem; letter-spacing: 3px; color: var(--ivory);">HANZŌ</h1>
+    <p style="color: var(--gold); letter-spacing: 5px; font-size: 0.82rem; text-transform: uppercase; margin-top: 0.2rem;">Jápanese</p>
+    <p style="color: var(--muted); font-size: 0.84rem; max-width: 300px; margin-top: 0.85rem;">
+      Sushis, arroz, tepanyaki, entradas y postres recién preparados.
+    </p>
+    <button class="enter-btn" onclick="enterMenu()">Entrar al Menú</button>
+  </div>
+
+  <!-- Contenedor principal -->
+  <div class="shell">
+    <!-- Encabezado con datos del menú -->
+    <header class="hero">
+      <div class="kicker">Menú Oficial</div>
+      <h1 class="title-jp">HANZŌ</h1>
+      <div class="brand-sub">Jápanese</div>
+      <div class="kanji-line">半蔵 · 美咲</div>
+
+      <div class="meta-grid">
+        <div class="meta-card">
+          <strong>Horarios</strong>
+          <span>Viernes: 7:00 – 10:00 PM · Sábado y Domingo: 3:00 – 10:00 PM</span>
+        </div>
+        <div class="meta-card">
+          <strong>Servicio a Domicilio</strong>
+          <span>Teléfono: 33 4666 2956</span>
+        </div>
+        <div class="meta-card">
+          <strong>Dirección</strong>
+          <span>C. Emiliano Zapata 383, Las Liebres</span>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <a href="https://maps.google.com/?q=C.+Emiliano+Zapata+383,+Las+Liebres" target="_blank" class="btn-crimson">
+          Ver Ubicación
+        </a>
+        <a href="tel:3346662956" class="btn-gold-ghost">
+          Llamar · 33 4666 2956
+        </a>
+      </div>
+    </header>
+
+    <!-- Buscador instantáneo y pestañas por categoría -->
+    <nav class="controls-sticky" aria-label="Buscar y filtrar menú">
+      <input
+        type="search"
+        id="menu-search"
+        class="search-box"
+        placeholder="Buscar platillo o ingrediente (ej. salmón, camarón, tampico, matcha/té)..."
+        oninput="applyFilters()"
+      />
+      <div class="tabs-row">
+        <button class="tab-btn active" onclick="setCategory('all', this)">Todo</button>
+        <button class="tab-btn" onclick="setCategory('entradas', this)">Entradas</button>
+        <button class="tab-btn" onclick="setCategory('arroz-tepanyaki', this)">Arroz &amp; Tepanyaki</button>
+        <button class="tab-btn" onclick="setCategory('sushis', this)">Sushis</button>
+        <button class="tab-btn" onclick="setCategory('sushis-frios', this)">Sushis Fríos</button>
+        <button class="tab-btn" onclick="setCategory('postres-bebidas', this)">Postres &amp; Bebidas</button>
+      </div>
+    </nav>
+
+    <!-- Entradas -->
+    <section class="menu-block" data-category="entradas">
+      <div class="block-head">
+        <h2 class="title-jp">Entradas</h2>
+        <span>前菜</span>
+      </div>
+
+      <div class="item-card" data-search="brochetas queso platano camaron">
+        <div class="item-top">
+          <span class="item-name">Brochetas</span>
+          <span class="item-price">Pz $30 · Ord $85</span>
+        </div>
+        <p class="item-desc">Queso, plátano y queso, camarón y queso.</p>
+        <div class="item-foot">
+          <button class="add-btn" onclick="addToOrder('Brochetas (Orden)', 85)">+ Agregar orden ($85)</button>
+        </div>
+      </div>
+
+      <div class="item-card" data-search="hontaka empanizado chiles gueros tampico queso">
+        <div class="item-top">
+          <span class="item-name">Hontaka Empanizado</span>
+          <span class="item-price">Pz $35 · Ord $100</span>
+        </div>
+        <p class="item-desc">Chiles güeros empanizados rellenos de ensalada tampico y queso.</p>
+        <div class="item-foot">
+          <button class="add-btn" onclick="addToOrder('Hontaka Empanizado (Orden)', 100)">+ Agregar orden ($100)</button>
+        </div>
+      </div>
+
+      <div class="item-card" data-search="hontaka bekon tocino chiles gueros queso camaron">
+        <div class="item-top">
+          <span class="item-name">Hontaka Bēkon</span>
+          <span class="item-price">Pz $30 · Ord $80</span>
+        </div>
+        <p class="item-desc">Chiles güeros cubierto con tocino rellenos de queso y camarón.</p>
+        <div class="item-foot">
+          <button class="add-btn" onclick="addToOrder('Hontaka Bēkon (Orden)', 80)">+ Agregar orden ($80)</button>
+        </div>
+      </div>
+
+      <div class="item-card" data-search="sopa udon pasta miso col pollo res champinon">
+        <div class="item-top">
+          <span class="item-name">Sopa Udon</span>
+          <span class="item-price">$75</span>
+        </div>
+        <p class="item-desc">Pasta, miso, col, pollo, res y champiñón.</p>
+        <div class="item-foot">
+          <button class="add-btn" onclick="addToOrder('Sopa Udon', 75)">+ Agregar ($75)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Arroz, Tepanyaki y Platillos -->
+    <section class="menu-block" data-category="arroz-tepanyaki">
+      <div class="block-head">
+        <h2 class="title-jp">Arroz &amp; Platillos</h2>
+        <span>ご飯・鉄板</span>
+      </div>
+
+      <div class="item-card" data-search="yakimeshi sencillo arroz frito zanahoria calabaza res pollo">
+        <div class="item-top">
+          <span class="item-name">Yakimeshi Sencillo</span>
+          <span class="item-price">$60</span>
+        </div>
+        <p class="item-desc">Arroz frito con zanahoria, calabaza, res y pollo.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Yakimeshi Sencillo', 60)">+ Agregar ($60)</button></div>
+      </div>
+
+      <div class="item-card" data-search="yakimeshi bacan tampico aguacate philadelphia">
+        <div class="item-top">
+          <span class="item-name">Yakimeshi Bacán</span>
+          <span class="item-price">$80</span>
+        </div>
+        <p class="item-desc">Ensalada de tampico, aguacate y Philadelphia.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Yakimeshi Bacán', 80)">+ Agregar ($80)</button></div>
+      </div>
+
+      <div class="item-card" data-search="gohan arroz blanco">
+        <div class="item-top">
+          <span class="item-name">Gohan</span>
+          <span class="item-price">$45</span>
+        </div>
+        <p class="item-desc">Arroz blanco.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Gohan', 45)">+ Agregar ($45)</button></div>
+      </div>
+
+      <div class="item-card" data-search="gohan bacan tampico aguacate philadelphia">
+        <div class="item-top">
+          <span class="item-name">Gohan Bacán</span>
+          <span class="item-price">$70</span>
+        </div>
+        <p class="item-desc">Ensalada de tampico, aguacate y Philadelphia.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Gohan Bacán', 70)">+ Agregar ($70)</button></div>
+      </div>
+
+      <div class="item-card" data-search="gohan teriyaki pollo salsa anguila ajonjoli">
+        <div class="item-top">
+          <span class="item-name">Gohan Teriyaki</span>
+          <span class="item-price">$80</span>
+        </div>
+        <p class="item-desc">Acompañado de pollo, salsa de anguila y ajonjolí.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Gohan Teriyaki', 80)">+ Agregar ($80)</button></div>
+      </div>
+
+      <div class="item-card" data-search="osaki kanikama camaron empanizado filadelfia aguacate cebollin anguila">
+        <div class="item-top">
+          <span class="item-name">Osaki</span>
+          <span class="item-price">$110</span>
+        </div>
+        <p class="item-desc">Kanikama, camarón empanizado, queso filadelfia, aguacate, cebollín y salsa de anguila.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Osaki', 110)">+ Agregar ($110)</button></div>
+      </div>
+
+      <div class="item-card" data-search="orenji arroz pollo capeado salsa orange filadelfia aguacate">
+        <div class="item-top">
+          <span class="item-name">Orenji</span>
+          <span class="item-price">$110</span>
+        </div>
+        <p class="item-desc">Arroz acompañado con pollo capeado, bañados en salsa orange con filadelfia y aguacate.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Orenji', 110)">+ Agregar ($110)</button></div>
+      </div>
+
+      <div class="item-card" data-search="kinoko parmesano champinones empanizados queso">
+        <div class="item-top">
+          <span class="item-name">Kinoko Parmesano</span>
+          <span class="item-price">$90</span>
+        </div>
+        <p class="item-desc">Champiñones empanizados con queso parmesano.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Kinoko Parmesano', 90)">+ Agregar ($90)</button></div>
+      </div>
+
+      <div class="item-card" data-search="chizu arroz tampico filadelfia aguacate manchego chipotle">
+        <div class="item-top">
+          <span class="item-name">Chīzu</span>
+          <span class="item-price">$95</span>
+        </div>
+        <p class="item-desc">Arroz acompañado de tampico, queso filadelfia, aguacate, queso manchego empanizado y aderezo de chipotle.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Chīzu', 95)">+ Agregar ($95)</button></div>
+      </div>
+
+      <div class="item-card" data-search="ya bekon arroz queso gratinado tampico philadelphia aguacate tocino chipotle">
+        <div class="item-top">
+          <span class="item-name">Ya Bēkon</span>
+          <span class="item-price">$95</span>
+        </div>
+        <p class="item-desc">Arroz, queso gratinado, ensalada de tampico, philadelphia, aguacate, tocino y aderezo chipotle.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Ya Bēkon', 95)">+ Agregar ($95)</button></div>
+      </div>
+
+      <div class="sub-heading">Tepanyaki</div>
+
+      <div class="item-card" data-search="tepanyaki vegetariano">
+        <div class="item-top">
+          <span class="item-name">Tepanyaki Vegetariano</span>
+          <span class="item-price">$85</span>
+        </div>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Tepanyaki Vegetariano', 85)">+ Agregar ($85)</button></div>
+      </div>
+
+      <div class="item-card" data-search="tepanyaki pollo res mixto">
+        <div class="item-top">
+          <span class="item-name">Tepanyaki Pollo Res Mixto</span>
+          <span class="item-price">$125</span>
+        </div>
+        <p class="item-desc">Res y pollo.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Tepanyaki Pollo Res Mixto', 125)">+ Agregar ($125)</button></div>
+      </div>
+
+      <div class="item-card" data-search="tepanyaki especial res pollo camaron">
+        <div class="item-top">
+          <span class="item-name">Tepanyaki Especial</span>
+          <span class="item-price">$135</span>
+        </div>
+        <p class="item-desc">Res, pollo y camarón.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Tepanyaki Especial', 135)">+ Agregar ($135)</button></div>
+      </div>
+
+      <div class="item-card" data-search="tepanyaki camaron">
+        <div class="item-top">
+          <span class="item-name">Tepanyaki Camarón</span>
+          <span class="item-price">$145</span>
+        </div>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Tepanyaki Camarón', 145)">+ Agregar ($145)</button></div>
+      </div>
+
+      <div class="sub-heading">Especialidades en Platillos</div>
+
+      <div class="item-card" data-search="misaki ball arroz philadelphia aguacate anguila">
+        <div class="item-top">
+          <span class="item-name">Misaki Ball</span>
+          <span class="item-price">$85</span>
+        </div>
+        <p class="item-desc">Bola de arroz rellena de queso philadelphia con proteína a elegir, aguacate, aderezos y salsa de anguila.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Misaki Ball', 85)">+ Agregar ($85)</button></div>
+      </div>
+
+      <div class="item-card" data-search="rollos primavera verdura arroz frito">
+        <div class="item-top">
+          <span class="item-name">Rollos Primavera</span>
+          <span class="item-price">$85</span>
+        </div>
+        <p class="item-desc">3 piezas de rollos rellenos de verdura acompañados con arroz frito.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Rollos Primavera', 85)">+ Agregar ($85)</button></div>
+      </div>
+
+      <div class="item-card" data-search="rollos primavera camaron">
+        <div class="item-top">
+          <span class="item-name">Rollos Primavera Camarón</span>
+          <span class="item-price">$100</span>
+        </div>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Rollos Primavera Camarón', 100)">+ Agregar ($100)</button></div>
+      </div>
+    </section>
+
+    <!-- Sushis -->
+    <section class="menu-block" data-category="sushis">
+      <div class="block-head">
+        <h2 class="title-jp">Sushis</h2>
+        <span>寿司</span>
+      </div>
+
+      <div class="item-card" data-search="sushi empanizado">
+        <div class="item-top"><span class="item-name">Empanizado</span><span class="item-price">$85</span></div>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Sushi Empanizado', 85)">+ Agregar ($85)</button></div>
+      </div>
+
+      <div class="item-card" data-search="empanizado bacan tampico anguila chipotle">
+        <div class="item-top"><span class="item-name">Empanizado Bacán</span><span class="item-price">$115</span></div>
+        <p class="item-desc">Ensalada de tampico, salsa de anguila y aderezo chipotle.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Empanizado Bacán', 115)">+ Agregar ($115)</button></div>
+      </div>
+
+      <div class="item-card" data-search="philadelphia empanizado queso">
+        <div class="item-top"><span class="item-name">Philadelphia Empanizado</span><span class="item-price">$100</span></div>
+        <p class="item-desc">Philadelphia por fuera y empanizado.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Philadelphia Empanizado', 100)">+ Agregar ($100)</button></div>
+      </div>
+
+      <div class="item-card" data-search="mar y tierra empanizado res camaron">
+        <div class="item-top"><span class="item-name">Mar y Tierra</span><span class="item-price">$90</span></div>
+        <p class="item-desc">Empanizado, res y camarón por dentro.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Mar y Tierra', 90)">+ Agregar ($90)</button></div>
+      </div>
+
+      <div class="item-card" data-search="manchego bacan tampico queso gratinado anguila chipotle">
+        <div class="item-top"><span class="item-name">Manchego Bacán</span><span class="item-price">$120</span></div>
+        <p class="item-desc">Ensalada de tampico, queso gratinado, salsa de anguila y aderezo chipotle.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Manchego Bacán', 120)">+ Agregar ($120)</button></div>
+      </div>
+
+      <div class="item-card" data-search="3 quesos manchego philadelphia amarillo">
+        <div class="item-top"><span class="item-name">3 Quesos</span><span class="item-price">$100</span></div>
+        <p class="item-desc">Queso manchego, philadelphia y amarillo por fuera.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('3 Quesos', 100)">+ Agregar ($100)</button></div>
+      </div>
+
+      <div class="item-card" data-search="surimi empanizado">
+        <div class="item-top"><span class="item-name">Surimi Empanizado</span><span class="item-price">$100</span></div>
+        <p class="item-desc">Surimi por fuera y empanizado.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Surimi Empanizado', 100)">+ Agregar ($100)</button></div>
+      </div>
+
+      <div class="item-card" data-search="el mexicano tocino res queso manchego">
+        <div class="item-top"><span class="item-name">El Mexicano</span><span class="item-price">$95</span></div>
+        <p class="item-desc">Tocino, res y queso manchego por dentro.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('El Mexicano', 95)">+ Agregar ($95)</button></div>
+      </div>
+
+      <div class="item-card" data-search="misaki bacan empanizado kani cebollin anguila ajonjoli">
+        <div class="item-top"><span class="item-name">Misaki Bacán</span><span class="item-price">$120</span></div>
+        <p class="item-desc">Empanizado coronado con ensalada kani, cebollín, salsa de anguila y ajonjolí.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Misaki Bacán', 120)">+ Agregar ($120)</button></div>
+      </div>
+
+      <div class="item-card" data-search="shiromi empanizado tampico kanikama camaron cebollin ajonjoli chipotle">
+        <div class="item-top"><span class="item-name">Shiromi</span><span class="item-price">$125</span></div>
+        <p class="item-desc">Empanizado coronado con tampico, kanikama, camarón picado, cebollín, ajonjolí y chipotle.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Shiromi', 125)">+ Agregar ($125)</button></div>
+      </div>
+    </section>
+
+    <!-- Sushis Fríos -->
+    <section class="menu-block" data-category="sushis-frios">
+      <div class="block-head">
+        <h2 class="title-jp">Sushis Fríos</h2>
+        <span>冷たい寿司</span>
+      </div>
+
+      <div class="item-card" data-search="philadelphia queso">
+        <div class="item-top"><span class="item-name">Philadelphia</span><span class="item-price">$90</span></div>
+        <p class="item-desc">Queso philadelphia por fuera.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Philadelphia Frío', 90)">+ Agregar ($90)</button></div>
+      </div>
+
+      <div class="item-card" data-search="philadelphia bacan tampico aguacate anguila ajonjoli">
+        <div class="item-top"><span class="item-name">Philadelphia Bacán</span><span class="item-price">$100</span></div>
+        <p class="item-desc">Philadelphia por fuera, ensalada tampico, aguacate, salsa de anguila y ajonjolí.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Philadelphia Bacán', 100)">+ Agregar ($100)</button></div>
+      </div>
+
+      <div class="item-card" data-search="california alga">
+        <div class="item-top"><span class="item-name">California</span><span class="item-price">$100</span></div>
+        <p class="item-desc">Alga por fuera.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('California', 100)">+ Agregar ($100)</button></div>
+      </div>
+
+      <div class="item-card" data-search="california bacan alga tampico pasta frita camaron anguila sriracha">
+        <div class="item-top"><span class="item-name">California Bacán</span><span class="item-price">$100</span></div>
+        <p class="item-desc">Alga por fuera, ensalada tampico, pasta frita, camarón empanizado, salsa de anguila y sriracha.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('California Bacán', 100)">+ Agregar ($100)</button></div>
+      </div>
+
+      <div class="item-card" data-search="ajonjoli">
+        <div class="item-top"><span class="item-name">Ajonjolí</span><span class="item-price">$90</span></div>
+        <p class="item-desc">Ajonjolí por fuera.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Ajonjolí', 90)">+ Agregar ($90)</button></div>
+      </div>
+
+      <div class="item-card" data-search="avocado aguacate">
+        <div class="item-top"><span class="item-name">Avocado</span><span class="item-price">$100</span></div>
+        <p class="item-desc">Aguacate por fuera.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Avocado', 100)">+ Agregar ($100)</button></div>
+      </div>
+
+      <div class="item-card" data-search="salmon">
+        <div class="item-top"><span class="item-name">Salmón</span><span class="item-price">$120</span></div>
+        <p class="item-desc">Salmón por fuera.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Salmón', 120)">+ Agregar ($120)</button></div>
+      </div>
+
+      <div class="item-card" data-search="surimi">
+        <div class="item-top"><span class="item-name">Surimi</span><span class="item-price">$100</span></div>
+        <p class="item-desc">Surimi por fuera.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Surimi', 100)">+ Agregar ($100)</button></div>
+      </div>
+
+      <div class="item-card" data-search="kani-kani philadelphia kanikama camaron queso sriracha anguila">
+        <div class="item-top"><span class="item-name">Kani-Kani</span><span class="item-price">$135</span></div>
+        <p class="item-desc">Philadelphia por fuera con ensalada de kanikama, camarón y queso empanizado, sriracha y salsa de anguila.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Kani-Kani', 135)">+ Agregar ($135)</button></div>
+      </div>
+
+      <div class="item-card" data-search="banana king platano macho">
+        <div class="item-top"><span class="item-name">Banana King</span><span class="item-price">$90</span></div>
+        <p class="item-desc">Plátano macho por fuera.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Banana King', 90)">+ Agregar ($90)</button></div>
+      </div>
+
+      <div class="item-card" data-search="arcoiris phila salmon masago camaron surimi">
+        <div class="item-top"><span class="item-name">Arcoíris</span><span class="item-price">$120</span></div>
+        <p class="item-desc">Phila, salmón, masago, camarón y surimi por fuera.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Arcoíris', 120)">+ Agregar ($120)</button></div>
+      </div>
+
+      <div class="item-card" data-search="tricolor phila aguacate surimi">
+        <div class="item-top"><span class="item-name">Tricolor</span><span class="item-price">$95</span></div>
+        <p class="item-desc">Phila, aguacate, surimi por fuera.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Tricolor', 95)">+ Agregar ($95)</button></div>
+      </div>
+    </section>
+
+    <!-- Postres y Bebidas -->
+    <section class="menu-block" data-category="postres-bebidas">
+      <div class="block-head">
+        <h2 class="title-jp">Postres &amp; Bebidas</h2>
+        <span>甘味・飲み物</span>
+      </div>
+
+      <div class="sub-heading">Postres</div>
+
+      <div class="item-card" data-search="helado tempura vainilla chocolate mermelada">
+        <div class="item-top"><span class="item-name">Helado Tempura</span><span class="item-price">$70</span></div>
+        <p class="item-desc">Panecillo helado y capeado, relleno con helado de vainilla y bañado en chocolate o mermelada.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Helado Tempura', 70)">+ Agregar ($70)</button></div>
+      </div>
+
+      <div class="item-card" data-search="banana vainilla platano macho helado chocolate">
+        <div class="item-top"><span class="item-name">Banana Vainilla</span><span class="item-price">$70</span></div>
+        <p class="item-desc">Plátano macho capeado, con helado de vainilla y bañado en chocolate.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Banana Vainilla', 70)">+ Agregar ($70)</button></div>
+      </div>
+
+      <div class="item-card" data-search="macho tempura platano filadelfia chocolate">
+        <div class="item-top"><span class="item-name">Macho Tempura</span><span class="item-price">$55</span></div>
+        <p class="item-desc">Plátano macho capeado, relleno de queso filadelfia y bañado en chocolate.</p>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Macho Tempura', 55)">+ Agregar ($55)</button></div>
+      </div>
+
+      <div class="sub-heading">Bebidas</div>
+
+      <div class="item-card" data-search="calpico">
+        <div class="item-top"><span class="item-name">Calpico</span><span class="item-price">$25</span></div>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Calpico', 25)">+ Agregar ($25)</button></div>
+      </div>
+
+      <div class="item-card" data-search="calpico 1 lt litro">
+        <div class="item-top"><span class="item-name">Calpico 1 Lt</span><span class="item-price">$45</span></div>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Calpico 1 Lt', 45)">+ Agregar ($45)</button></div>
+      </div>
+
+      <div class="item-card" data-search="jasmine tea te jazmin">
+        <div class="item-top"><span class="item-name">Jasmine Tea</span><span class="item-price">$20</span></div>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Jasmine Tea', 20)">+ Agregar ($20)</button></div>
+      </div>
+
+      <div class="item-card" data-search="jasmine tea 1 lt litro">
+        <div class="item-top"><span class="item-name">Jasmine Tea 1 Lt</span><span class="item-price">$35</span></div>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Jasmine Tea 1 Lt', 35)">+ Agregar ($35)</button></div>
+      </div>
+
+      <div class="item-card" data-search="refresco bebida">
+        <div class="item-top"><span class="item-name">Refresco</span><span class="item-price">$20</span></div>
+        <div class="item-foot"><button class="add-btn" onclick="addToOrder('Refresco', 20)">+ Agregar ($20)</button></div>
+      </div>
+    </section>
+
+    <div id="empty-search">No se encontraron platillos con ese término.</div>
+
+    <!-- Bloque final de cotización con tus datos -->
+    <div class="vexa-quote-box">
+      <h3 class="title-jp">¿Quieres un Menú Web Así para tu Negocio?</h3>
+      <p>Diseño a medida para restaurantes, dark kitchens, cafeterías y comercios con enlace y código QR.</p>
+      <div class="vexa-phone">+52 1 314 247 8637</div>
+      <a
+        href="https://wa.me/5213142478637?text=Hola%2C%20vi%20la%20muestra%20de%20men%C3%BA%20japon%C3%A9s%20HANZ%C5%8C%20y%20me%20gustar%C3%ADa%20cotizar%20uno%20para%20mi%20negocio."
+        target="_blank"
+        class="vexa-btn"
+      >
+        Cotizar por WhatsApp
+      </a>
+    </div>
+
+    <!-- Pie de página -->
+    <footer>
+      <p>HANZŌ Jápanese · C. Emiliano Zapata 383, Las Liebres · Tel: 33 4666 2956</p>
+      <p style="margin-top: 0.3rem;">Desarrollado por <a href="https://github.com/VexaDigital" target="_blank">VexaDigital</a></p>
+    </footer>
+  </div>
+
+  <!-- Barra fija inferior para armar y mandar pedido a domicilio de HANZŌ -->
+  <div class="order-bar">
+    <div class="order-summary">
+      <strong id="order-count">0 platillos · $0</strong>
+      <span>Domicilio HANZŌ: 33 4666 2956</span>
+    </div>
+    <div class="order-actions">
+      <button class="clear-btn" onclick="clearOrder()">Limpiar</button>
+      <button class="send-order-btn" onclick="sendOrderToHanzo()">Pedir</button>
+    </div>
+  </div>
+
+  <script>
+    // Número de domicilio de HANZŌ Jápanese (52 + 10 dígitos)
+    const hanzoPhone = "523346662956";
+
+    // Control de música japonesa local
+    const jpAudio = document.getElementById('jp-audio');
+    const audioBtn = document.getElementById('audio-btn');
+    let playingAudio = false;
+
+    function enterMenu() {
+      const curtain = document.getElementById('intro-curtain');
+      if (curtain) {
+        curtain.classList.add('hidden');
+        setTimeout(() => { curtain.style.display = 'none'; }, 780);
+      }
+      if (jpAudio && jpAudio.querySelector('source')) {
+        jpAudio.play().then(() => {
+          playingAudio = true;
+          if (audioBtn) audioBtn.textContent = '❚❚';
+        }).catch(() => {});
+      }
+    }
+
+    if (audioBtn) {
+      audioBtn.addEventListener('click', () => {
+        if (!jpAudio || !jpAudio.querySelector('source')) return;
+        if (playingAudio) {
+          jpAudio.pause();
+          audioBtn.textContent = '♪';
+        } else {
+          jpAudio.play().catch(() => {});
+          audioBtn.textContent = '❚❚';
+        }
+        playingAudio = !playingAudio;
+      });
+    }
+
+    // Estado de categoría activa y filtro por texto
+    let activeCategory = 'all';
+
+    function setCategory(cat, btn) {
+      activeCategory = cat;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const query = (document.getElementById('menu-search')?.value || '').trim().toLowerCase();
+      const blocks = document.querySelectorAll('.menu-block');
+      let totalVisibleItems = 0;
+
+      blocks.forEach(block => {
+        const blockCat = block.getAttribute('data-category');
+        const matchesCat = (activeCategory === 'all' || blockCat === activeCategory);
+
+        if (!matchesCat) {
+          block.classList.add('hidden-el');
+          return;
+        }
+
+        const cards = block.querySelectorAll('.item-card');
+        let visibleInBlock = 0;
+
+        cards.forEach(card => {
+          const textData = (card.getAttribute('data-search') || '') + ' ' + card.textContent.toLowerCase();
+          const matchesQuery = !query || textData.includes(query);
+
+          if (matchesQuery) {
+            card.classList.remove('hidden-el');
+            visibleInBlock++;
+            totalVisibleItems++;
+          } else {
+            card.classList.add('hidden-el');
+          }
+        });
+
+        // Oculta la sección completa si no hay coincidencias dentro de ella
+        if (visibleInBlock === 0 && query) {
+          block.classList.add('hidden-el');
+        } else {
+          block.classList.remove('hidden-el');
+        }
+      });
+
+      const emptyEl = document.getElementById('empty-search');
+      if (emptyEl) {
+        emptyEl.style.display = totalVisibleItems === 0 ? 'block' : 'none';
+      }
+    }
+
+    // Carrito rápido para armar pedido y enviarlo al WhatsApp de HANZŌ
+    let cart = [];
+
+    function addToOrder(name, price) {
+      const existing = cart.find(item => item.name === name);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ name, price, qty: 1 });
+      }
+      renderOrderBar();
+    }
+
+    function clearOrder() {
+      cart = [];
+      renderOrderBar();
+    }
+
+    function renderOrderBar() {
+      const countEl = document.getElementById('order-count');
+      if (!countEl) return;
+
+      const totalQty = cart.reduce((acc, item) => acc + item.qty, 0);
+      const totalPrice = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+
+      countEl.textContent = `${totalQty} ${totalQty === 1 ? 'platillo' : 'platillos'} · $${totalPrice}`;
+    }
+
+    function sendOrderToHanzo() {
+      if (cart.length === 0) {
+        alert('Agrega al menos un platillo con el botón "+ Agregar" para armar tu pedido.');
+        return;
+      }
+
+      let lines = ['¡Hola HANZŌ Jápanese! Me gustaría hacer un pedido a domicilio:'];
+      let total = 0;
+
+      cart.forEach(item => {
+        const sub = item.price * item.qty;
+        total += sub;
+        lines.push(`• ${item.qty}x ${item.name} ($${sub})`);
+      });
+
+      lines.push(`\nTotal estimado: *$${total}*`);
+      lines.push('Ubicación: C. Emiliano Zapata 383, Las Liebres');
+
+      const url = `https://wa.me/${hanzoPhone}?text=${encodeURIComponent(lines.join('\n'))}`;
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
+</html>
