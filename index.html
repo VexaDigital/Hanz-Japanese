@@ -31,7 +31,6 @@
 
     html { scroll-behavior: smooth; }
 
-    /* Fondo oscuro con textura sutil de inspiración japonesa */
     body {
       font-family: 'Montserrat', sans-serif;
       background-color: var(--bg-obsidian);
@@ -41,11 +40,37 @@
       color: var(--ivory);
       line-height: 1.5;
       overflow-x: hidden;
-      padding-bottom: 92px;
+      padding-bottom: 96px;
     }
 
     .title-jp {
       font-family: 'Cinzel', 'Noto Serif JP', serif;
+    }
+
+    /* Pétalos sutiles */
+    .sakura-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      top: -20px;
+      width: 9px;
+      height: 6px;
+      border-radius: 100% 0 100% 0;
+      background: rgba(245, 223, 158, 0.22);
+      animation: fallPetal linear infinite;
+    }
+
+    @keyframes fallPetal {
+      0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+      15% { opacity: 0.7; }
+      85% { opacity: 0.7; }
+      100% { transform: translateY(105vh) translateX(35px) rotate(320deg); opacity: 0; }
     }
 
     /* Cortina de entrada */
@@ -70,7 +95,6 @@
       visibility: hidden;
     }
 
-    /* Espacio para logotipo del restaurante */
     .logo-slot {
       width: 92px;
       height: 92px;
@@ -127,7 +151,7 @@
     /* Botón flotante para sonido/música japonesa */
     #audio-btn {
       position: fixed;
-      bottom: 88px;
+      bottom: 92px;
       right: 14px;
       width: 46px;
       height: 46px;
@@ -165,8 +189,9 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* Contenedor optimizado para celular */
     .mobile-shell {
+      position: relative;
+      z-index: 10;
       max-width: 560px;
       margin: 0 auto;
       min-height: 100vh;
@@ -192,7 +217,41 @@
       background: rgba(22, 25, 33, 0.85);
       padding: 4px 12px;
       border-radius: 999px;
+      margin-bottom: 0.7rem;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 11px;
+      border-radius: 999px;
       margin-bottom: 0.85rem;
+      margin-left: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .status-pill.open {
+      background: rgba(22, 163, 74, 0.18);
+      color: #86efac;
+      border-color: rgba(74, 222, 128, 0.45);
+    }
+
+    .status-pill.closed {
+      background: rgba(185, 28, 28, 0.2);
+      color: #fca5a5;
+      border-color: rgba(248, 113, 113, 0.4);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
     }
 
     .hero h1 {
@@ -249,11 +308,10 @@
       color: var(--ivory);
     }
 
-    /* Botón directo al marcador del móvil + mapa + copiar dirección */
     .action-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 9px;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
       margin-top: 1.15rem;
     }
 
@@ -280,16 +338,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 10px 12px;
+      padding: 10px 8px;
       border-radius: 10px;
       background: var(--bg-card);
       color: var(--gold-soft);
       text-decoration: none;
       border: 1px solid var(--line-gold);
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 600;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.6px;
       text-transform: uppercase;
       cursor: pointer;
     }
@@ -393,6 +451,7 @@
       border-radius: 10px;
       padding: 0.88rem 0.95rem;
       margin-bottom: 0.68rem;
+      transition: background 0.2s ease, border-color 0.2s ease;
     }
 
     .dish-box:hover {
@@ -407,10 +466,35 @@
       gap: 10px;
     }
 
+    .dish-title-wrap {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
     .dish-title {
       font-weight: 600;
       font-size: 0.91rem;
       color: var(--ivory);
+    }
+
+    .dish-tag {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(223, 177, 75, 0.14);
+      color: var(--gold-soft);
+      border: 1px solid var(--line-gold);
+    }
+
+    .dish-tag.spicy {
+      background: rgba(220, 38, 38, 0.18);
+      color: #fca5a5;
+      border-color: rgba(248, 113, 113, 0.35);
     }
 
     .dish-cost {
@@ -429,17 +513,19 @@
     .dish-action {
       display: flex;
       justify-content: flex-end;
-      margin-top: 0.5rem;
+      align-items: center;
+      gap: 8px;
+      margin-top: 0.55rem;
     }
 
     .add-dish-btn {
-      padding: 5px 11px;
+      padding: 6px 12px;
       border-radius: 7px;
       border: 1px solid var(--line-gold);
-      background: rgba(223, 177, 75, 0.08);
+      background: rgba(223, 177, 75, 0.1);
       color: var(--gold-soft);
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.7rem;
+      font-size: 0.71rem;
       font-weight: 600;
       cursor: pointer;
     }
@@ -457,7 +543,7 @@
       font-size: 0.84rem;
     }
 
-    /* Bloque de publicidad al final con espacio para logotipo y servicios */
+    /* Bloque de publicidad al final con contenedor de logotipo ajustado */
     .ad-banner-pro {
       background:
         radial-gradient(circle at top, rgba(223, 177, 75, 0.14), transparent 60%),
@@ -477,38 +563,30 @@
       font-weight: 700;
       padding: 3px 11px;
       border-radius: 999px;
-      margin-bottom: 0.9rem;
+      margin-bottom: 1rem;
     }
 
-    /* Espacio reservado para el logotipo de tu marca en la publicidad */
+    /* Contenedor VEXA DIGITAL: fondo marfil/blanco, borde sólido, mayor proporción y nitidez */
     .ad-logo-box {
-      width: 84px;
-      height: 84px;
-      margin: 0 auto 0.95rem;
+      width: 138px;
+      height: 122px;
+      margin: 0 auto 1.05rem;
       border-radius: 18px;
-      border: 1.5px dashed var(--gold);
-      background: rgba(9, 10, 13, 0.75);
+      border: 2px solid var(--gold);
+      background: var(--ivory);
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: var(--gold-soft);
-      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65);
       overflow: hidden;
+      padding: 6px;
     }
 
     .ad-logo-box img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-    }
-
-    .ad-logo-box small {
-      font-size: 0.58rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--gold);
-      font-weight: 700;
+      object-fit: contain;
+      display: block;
     }
 
     .ad-banner-pro h3 {
@@ -603,7 +681,7 @@
       max-width: 560px;
       background: rgba(14, 16, 22, 0.98);
       border-top: 1px solid var(--line-gold);
-      padding: 0.7rem 0.95rem;
+      padding: 0.72rem 0.95rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -612,14 +690,19 @@
       box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.75);
     }
 
+    .cart-info {
+      flex: 1;
+      cursor: pointer;
+    }
+
     .cart-info strong {
       display: block;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: var(--gold-soft);
     }
 
     .cart-info span {
-      font-size: 0.7rem;
+      font-size: 0.69rem;
       color: var(--muted);
     }
 
@@ -632,9 +715,10 @@
       padding: 8px 10px;
       border-radius: 8px;
       border: 1px solid var(--line-soft);
-      background: transparent;
-      color: var(--muted);
+      background: var(--bg-card);
+      color: var(--gold-soft);
       font-size: 0.72rem;
+      font-weight: 600;
       cursor: pointer;
     }
 
@@ -652,15 +736,136 @@
       cursor: pointer;
     }
 
+    /* Modal / hoja inferior de detalle de pedido y variantes */
+    .sheet-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: 2100;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .sheet-backdrop.open {
+      display: flex;
+    }
+
+    .sheet-card {
+      width: 100%;
+      max-width: 560px;
+      max-height: 85vh;
+      overflow-y: auto;
+      background: #12151d;
+      border-top: 2px solid var(--gold);
+      border-radius: 18px 18px 0 0;
+      padding: 1.25rem 1.1rem 1.6rem;
+    }
+
+    .sheet-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.9rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .sheet-header h3 {
+      font-size: 1.1rem;
+      color: var(--gold-soft);
+    }
+
+    .close-sheet-btn {
+      background: var(--bg-card);
+      color: var(--ivory);
+      border: 1px solid var(--line-soft);
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+
+    .option-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 0.6rem;
+    }
+
+    .option-choice {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 11px 13px;
+      border-radius: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--line-soft);
+      color: var(--ivory);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.82rem;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .option-choice:hover {
+      border-color: var(--gold);
+      background: var(--bg-card-hover);
+    }
+
+    .cart-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--line-soft);
+      border-radius: 10px;
+      padding: 0.75rem 0.85rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .qty-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      border: 1px solid var(--line-gold);
+      background: rgba(223, 177, 75, 0.12);
+      color: var(--gold-soft);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .sheet-field {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 9px;
+      border: 1px solid var(--line-soft);
+      background: var(--bg-card);
+      color: var(--ivory);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      margin-top: 0.6rem;
+    }
+
     .hide-item { display: none !important; }
   </style>
 </head>
 <body>
 
+  <!-- Pétalos sutiles -->
+  <div class="sakura-layer" id="sakura-layer" aria-hidden="true"></div>
+
   <!-- Aviso rápido en pantalla -->
   <div id="toast-msg">Listo</div>
 
-  <!-- Audio opcional MP3 local: si subes hanzo-japan.mp3 a la raíz del repo, descomenta <source> -->
+  <!-- Audio opcional MP3 local -->
   <audio id="local-mp3" loop preload="none">
     <!-- <source src="./hanzo-japan.mp3" type="audio/mpeg"> -->
   </audio>
@@ -668,9 +873,8 @@
   <!-- Botón flotante para pausar/activar música japonesa -->
   <button id="audio-btn" title="Música japonesa">♪</button>
 
-  <!-- Pantalla inicial con espacio para logotipo -->
+  <!-- Pantalla inicial -->
   <div id="intro-curtain">
-    <!-- Espacio para logo de HANZŌ: reemplaza por <img src="./logo-hanzo.png" alt="Logo HANZŌ"> -->
     <div class="logo-slot" id="intro-logo">
       <span class="logo-placeholder-kanji">半蔵</span>
       <span class="logo-placeholder-txt">LOGO</span>
@@ -686,16 +890,21 @@
   </div>
 
   <!-- Contenedor móvil -->
-  <div class="mobile-shell">
-    <!-- Portada con espacio para logotipo y botón directo al marcador del móvil -->
+  <div class="mobile-shell" id="menu-top">
     <header class="hero">
-      <!-- Espacio para logo en portada: reemplaza por <img src="./logo-hanzo.png" alt="Logo HANZŌ"> -->
       <div class="logo-slot" id="hero-logo">
         <span class="logo-placeholder-kanji">半蔵</span>
         <span class="logo-placeholder-txt">TU LOGO</span>
       </div>
 
-      <div class="badge-top">Menú Digital Móvil</div>
+      <div>
+        <span class="badge-top">Menú Digital Móvil</span>
+        <span class="status-pill closed" id="open-status-pill">
+          <span class="status-dot"></span>
+          <span id="open-status-text">Verificando horario</span>
+        </span>
+      </div>
+
       <h1 class="title-jp">HANZŌ</h1>
       <div class="sub-name">Jápanese</div>
       <div class="jp-motto">半蔵 · 美咲</div>
@@ -715,7 +924,6 @@
         </div>
       </div>
 
-      <!-- Botón que abre directo el marcador telefónico del celular -->
       <div class="action-grid">
         <a href="tel:+523346662956" class="call-btn">
           Llamar ahora · 33 4666 2956
@@ -726,11 +934,14 @@
         <button type="button" class="sec-btn" onclick="copyAddress()">
           Copiar Dirección
         </button>
+        <button type="button" class="sec-btn" onclick="shareMenuLink()">
+          Compartir Menú
+        </button>
       </div>
     </header>
 
     <!-- Buscador y pestañas de categorías -->
-    <nav class="filter-sticky" aria-label="Buscar y filtrar platillos">
+    <nav class="filter-sticky" id="filter-bar" aria-label="Buscar y filtrar platillos">
       <input
         type="search"
         id="search-box"
@@ -739,12 +950,12 @@
         oninput="runFilters()"
       />
       <div class="cat-scroller">
-        <button class="cat-chip active" onclick="selectCategory('all', this)">Todo</button>
-        <button class="cat-chip" onclick="selectCategory('entradas', this)">Entradas</button>
-        <button class="cat-chip" onclick="selectCategory('arroz-tepanyaki', this)">Arroz &amp; Tepanyaki</button>
-        <button class="cat-chip" onclick="selectCategory('sushis', this)">Sushis</button>
-        <button class="cat-chip" onclick="selectCategory('sushis-frios', this)">Sushis Fríos</button>
-        <button class="cat-chip" onclick="selectCategory('postres-bebidas', this)">Postres &amp; Bebidas</button>
+        <button type="button" class="cat-chip active" data-cat-chip="all" onclick="selectCategory('all', this)">Todo</button>
+        <button type="button" class="cat-chip" data-cat-chip="entradas" onclick="selectCategory('entradas', this)">Entradas</button>
+        <button type="button" class="cat-chip" data-cat-chip="arroz-tepanyaki" onclick="selectCategory('arroz-tepanyaki', this)">Arroz &amp; Tepanyaki</button>
+        <button type="button" class="cat-chip" data-cat-chip="sushis" onclick="selectCategory('sushis', this)">Sushis</button>
+        <button type="button" class="cat-chip" data-cat-chip="sushis-frios" onclick="selectCategory('sushis-frios', this)">Sushis Fríos</button>
+        <button type="button" class="cat-chip" data-cat-chip="postres-bebidas" onclick="selectCategory('postres-bebidas', this)">Postres &amp; Bebidas</button>
       </div>
     </nav>
 
@@ -756,27 +967,54 @@
       </div>
 
       <div class="dish-box" data-keywords="brochetas queso platano camaron">
-        <div class="dish-head"><span class="dish-title">Brochetas</span><span class="dish-cost">Pz $30 · Ord $85</span></div>
+        <div class="dish-head">
+          <div class="dish-title-wrap">
+            <span class="dish-title">Brochetas</span>
+          </div>
+          <span class="dish-cost">Pz $30 · Ord $85</span>
+        </div>
         <p class="dish-note">Queso, plátano y queso, camarón y queso.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Brochetas (Orden)', 85)">+ Agregar ($85)</button></div>
+        <div class="dish-action">
+          <button type="button" class="add-dish-btn" onclick="openVariantPicker('Brochetas', [{label:'Pieza ($30)', price:30},{label:'Orden ($85)', price:85}])">+ Elegir / Agregar</button>
+        </div>
       </div>
 
       <div class="dish-box" data-keywords="hontaka empanizado chiles gueros tampico queso">
-        <div class="dish-head"><span class="dish-title">Hontaka Empanizado</span><span class="dish-cost">Pz $35 · Ord $100</span></div>
+        <div class="dish-head">
+          <div class="dish-title-wrap">
+            <span class="dish-title">Hontaka Empanizado</span>
+            <span class="dish-tag">Crujiente</span>
+          </div>
+          <span class="dish-cost">Pz $35 · Ord $100</span>
+        </div>
         <p class="dish-note">Chiles güeros empanizados rellenos de ensalada tampico y queso.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Hontaka Empanizado (Orden)', 100)">+ Agregar ($100)</button></div>
+        <div class="dish-action">
+          <button type="button" class="add-dish-btn" onclick="openVariantPicker('Hontaka Empanizado', [{label:'Pieza ($35)', price:35},{label:'Orden ($100)', price:100}])">+ Elegir / Agregar</button>
+        </div>
       </div>
 
       <div class="dish-box" data-keywords="hontaka bekon tocino chiles gueros queso camaron">
-        <div class="dish-head"><span class="dish-title">Hontaka Bēkon</span><span class="dish-cost">Pz $30 · Ord $80</span></div>
+        <div class="dish-head">
+          <div class="dish-title-wrap">
+            <span class="dish-title">Hontaka Bēkon</span>
+          </div>
+          <span class="dish-cost">Pz $30 · Ord $80</span>
+        </div>
         <p class="dish-note">Chiles güeros cubierto con tocino rellenos de queso y camarón.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Hontaka Bēkon (Orden)', 80)">+ Agregar ($80)</button></div>
+        <div class="dish-action">
+          <button type="button" class="add-dish-btn" onclick="openVariantPicker('Hontaka Bēkon', [{label:'Pieza ($30)', price:30},{label:'Orden ($80)', price:80}])">+ Elegir / Agregar</button>
+        </div>
       </div>
 
       <div class="dish-box" data-keywords="sopa udon pasta miso col pollo res champinon">
-        <div class="dish-head"><span class="dish-title">Sopa Udon</span><span class="dish-cost">$75</span></div>
+        <div class="dish-head">
+          <div class="dish-title-wrap">
+            <span class="dish-title">Sopa Udon</span>
+          </div>
+          <span class="dish-cost">$75</span>
+        </div>
         <p class="dish-note">Pasta, miso, col, pollo, res y champiñón.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Sopa Udon', 75)">+ Agregar ($75)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Sopa Udon', 75)">+ Agregar ($75)</button></div>
       </div>
     </section>
 
@@ -790,85 +1028,109 @@
       <div class="dish-box" data-keywords="yakimeshi sencillo arroz frito zanahoria calabaza res pollo">
         <div class="dish-head"><span class="dish-title">Yakimeshi Sencillo</span><span class="dish-cost">$60</span></div>
         <p class="dish-note">Arroz frito con zanahoria, calabaza, res y pollo.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Yakimeshi Sencillo', 60)">+ Agregar ($60)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Yakimeshi Sencillo', 60)">+ Agregar ($60)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="yakimeshi bacan tampico aguacate philadelphia">
-        <div class="dish-head"><span class="dish-title">Yakimeshi Bacán</span><span class="dish-cost">$80</span></div>
+        <div class="dish-head">
+          <div class="dish-title-wrap">
+            <span class="dish-title">Yakimeshi Bacán</span>
+            <span class="dish-tag">Favorito</span>
+          </div>
+          <span class="dish-cost">$80</span>
+        </div>
         <p class="dish-note">Ensalada de tampico, aguacate y Philadelphia.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Yakimeshi Bacán', 80)">+ Agregar ($80)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Yakimeshi Bacán', 80)">+ Agregar ($80)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="gohan arroz blanco">
         <div class="dish-head"><span class="dish-title">Gohan</span><span class="dish-cost">$45</span></div>
         <p class="dish-note">Arroz blanco.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Gohan', 45)">+ Agregar ($45)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Gohan', 45)">+ Agregar ($45)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="gohan bacan tampico aguacate philadelphia">
         <div class="dish-head"><span class="dish-title">Gohan Bacán</span><span class="dish-cost">$70</span></div>
         <p class="dish-note">Ensalada de tampico, aguacate y Philadelphia.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Gohan Bacán', 70)">+ Agregar ($70)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Gohan Bacán', 70)">+ Agregar ($70)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="gohan teriyaki pollo salsa anguila ajonjoli">
         <div class="dish-head"><span class="dish-title">Gohan Teriyaki</span><span class="dish-cost">$80</span></div>
         <p class="dish-note">Acompañado de pollo, salsa de anguila y ajonjolí.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Gohan Teriyaki', 80)">+ Agregar ($80)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Gohan Teriyaki', 80)">+ Agregar ($80)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="osaki kanikama camaron empanizado filadelfia aguacate cebollin anguila">
         <div class="dish-head"><span class="dish-title">Osaki</span><span class="dish-cost">$110</span></div>
         <p class="dish-note">Kanikama, camarón empanizado, queso filadelfia, aguacate, cebollín y salsa de anguila.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Osaki', 110)">+ Agregar ($110)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Osaki', 110)">+ Agregar ($110)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="orenji arroz pollo capeado salsa orange filadelfia aguacate">
         <div class="dish-head"><span class="dish-title">Orenji</span><span class="dish-cost">$110</span></div>
         <p class="dish-note">Arroz acompañado con pollo capeado, bañados en salsa orange con filadelfia y aguacate.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Orenji', 110)">+ Agregar ($110)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Orenji', 110)">+ Agregar ($110)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="kinoko parmesano champinones empanizados queso">
         <div class="dish-head"><span class="dish-title">Kinoko Parmesano</span><span class="dish-cost">$90</span></div>
         <p class="dish-note">Champiñones empanizados con queso parmesano.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Kinoko Parmesano', 90)">+ Agregar ($90)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Kinoko Parmesano', 90)">+ Agregar ($90)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="chizu arroz tampico filadelfia aguacate manchego chipotle">
-        <div class="dish-head"><span class="dish-title">Chīzu</span><span class="dish-cost">$95</span></div>
+        <div class="dish-head">
+          <div class="dish-title-wrap">
+            <span class="dish-title">Chīzu</span>
+            <span class="dish-tag spicy">Chipotle</span>
+          </div>
+          <span class="dish-cost">$95</span>
+        </div>
         <p class="dish-note">Arroz acompañado de tampico, queso filadelfia, aguacate, queso manchego empanizado y aderezo de chipotle.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Chīzu', 95)">+ Agregar ($95)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Chīzu', 95)">+ Agregar ($95)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="ya bekon arroz queso gratinado tampico philadelphia aguacate tocino chipotle">
-        <div class="dish-head"><span class="dish-title">Ya Bēkon</span><span class="dish-cost">$95</span></div>
+        <div class="dish-head">
+          <div class="dish-title-wrap">
+            <span class="dish-title">Ya Bēkon</span>
+            <span class="dish-tag spicy">Chipotle</span>
+          </div>
+          <span class="dish-cost">$95</span>
+        </div>
         <p class="dish-note">Arroz, queso gratinado, ensalada de tampico, philadelphia, aguacate, tocino y aderezo chipotle.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Ya Bēkon', 95)">+ Agregar ($95)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Ya Bēkon', 95)">+ Agregar ($95)</button></div>
       </div>
 
       <div class="sub-label">Tepanyaki</div>
 
       <div class="dish-box" data-keywords="tepanyaki vegetariano">
         <div class="dish-head"><span class="dish-title">Tepanyaki Vegetariano</span><span class="dish-cost">$85</span></div>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Tepanyaki Vegetariano', 85)">+ Agregar ($85)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Tepanyaki Vegetariano', 85)">+ Agregar ($85)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="tepanyaki pollo res mixto">
         <div class="dish-head"><span class="dish-title">Tepanyaki Pollo Res Mixto</span><span class="dish-cost">$125</span></div>
         <p class="dish-note">Res y pollo.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Tepanyaki Pollo Res Mixto', 125)">+ Agregar ($125)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Tepanyaki Pollo Res Mixto', 125)">+ Agregar ($125)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="tepanyaki especial res pollo camaron">
-        <div class="dish-head"><span class="dish-title">Tepanyaki Especial</span><span class="dish-cost">$135</span></div>
+        <div class="dish-head">
+          <div class="dish-title-wrap">
+            <span class="dish-title">Tepanyaki Especial</span>
+            <span class="dish-tag">Favorito</span>
+          </div>
+          <span class="dish-cost">$135</span>
+        </div>
         <p class="dish-note">Res, pollo y camarón.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Tepanyaki Especial', 135)">+ Agregar ($135)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Tepanyaki Especial', 135)">+ Agregar ($135)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="tepanyaki camaron">
         <div class="dish-head"><span class="dish-title">Tepanyaki Camarón</span><span class="dish-cost">$145</span></div>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Tepanyaki Camarón', 145)">+ Agregar ($145)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Tepanyaki Camarón', 145)">+ Agregar ($145)</button></div>
       </div>
 
       <div class="sub-label">Especialidades</div>
@@ -876,18 +1138,20 @@
       <div class="dish-box" data-keywords="misaki ball arroz philadelphia aguacate anguila">
         <div class="dish-head"><span class="dish-title">Misaki Ball</span><span class="dish-cost">$85</span></div>
         <p class="dish-note">Bola de arroz rellena de queso philadelphia con proteína a elegir, aguacate, aderezos y salsa de anguila.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Misaki Ball', 85)">+ Agregar ($85)</button></div>
+        <div class="dish-action">
+          <button type="button" class="add-dish-btn" onclick="openVariantPicker('Misaki Ball', [{label:'Pollo ($85)', price:85},{label:'Res ($85)', price:85},{label:'Camarón ($85)', price:85},{label:'Mixto ($85)', price:85}])">+ Elegir Proteína ($85)</button>
+        </div>
       </div>
 
       <div class="dish-box" data-keywords="rollos primavera verdura arroz frito">
         <div class="dish-head"><span class="dish-title">Rollos Primavera</span><span class="dish-cost">$85</span></div>
         <p class="dish-note">3 piezas de rollos rellenos de verdura acompañados con arroz frito.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Rollos Primavera', 85)">+ Agregar ($85)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Rollos Primavera', 85)">+ Agregar ($85)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="rollos primavera camaron">
         <div class="dish-head"><span class="dish-title">Rollos Primavera Camarón</span><span class="dish-cost">$100</span></div>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Rollos Primavera Camarón', 100)">+ Agregar ($100)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Rollos Primavera Camarón', 100)">+ Agregar ($100)</button></div>
       </div>
     </section>
 
@@ -900,61 +1164,79 @@
 
       <div class="dish-box" data-keywords="sushi empanizado">
         <div class="dish-head"><span class="dish-title">Empanizado</span><span class="dish-cost">$85</span></div>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Sushi Empanizado', 85)">+ Agregar ($85)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Sushi Empanizado', 85)">+ Agregar ($85)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="empanizado bacan tampico anguila chipotle">
-        <div class="dish-head"><span class="dish-title">Empanizado Bacán</span><span class="dish-cost">$115</span></div>
+        <div class="dish-head">
+          <div class="dish-title-wrap">
+            <span class="dish-title">Empanizado Bacán</span>
+            <span class="dish-tag spicy">Chipotle</span>
+          </div>
+          <span class="dish-cost">$115</span>
+        </div>
         <p class="dish-note">Ensalada de tampico, salsa de anguila y aderezo chipotle.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Empanizado Bacán', 115)">+ Agregar ($115)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Empanizado Bacán', 115)">+ Agregar ($115)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="philadelphia empanizado queso">
         <div class="dish-head"><span class="dish-title">Philadelphia Empanizado</span><span class="dish-cost">$100</span></div>
         <p class="dish-note">Philadelphia por fuera y empanizado.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Philadelphia Empanizado', 100)">+ Agregar ($100)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Philadelphia Empanizado', 100)">+ Agregar ($100)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="mar y tierra empanizado res camaron">
         <div class="dish-head"><span class="dish-title">Mar y Tierra</span><span class="dish-cost">$90</span></div>
         <p class="dish-note">Empanizado, res y camarón por dentro.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Mar y Tierra', 90)">+ Agregar ($90)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Mar y Tierra', 90)">+ Agregar ($90)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="manchego bacan tampico queso gratinado anguila chipotle">
-        <div class="dish-head"><span class="dish-title">Manchego Bacán</span><span class="dish-cost">$120</span></div>
+        <div class="dish-head">
+          <div class="dish-title-wrap">
+            <span class="dish-title">Manchego Bacán</span>
+            <span class="dish-tag spicy">Chipotle</span>
+          </div>
+          <span class="dish-cost">$120</span>
+        </div>
         <p class="dish-note">Ensalada de tampico, queso gratinado, salsa de anguila y aderezo chipotle.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Manchego Bacán', 120)">+ Agregar ($120)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Manchego Bacán', 120)">+ Agregar ($120)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="3 quesos manchego philadelphia amarillo">
         <div class="dish-head"><span class="dish-title">3 Quesos</span><span class="dish-cost">$100</span></div>
         <p class="dish-note">Queso manchego, philadelphia y amarillo por fuera.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('3 Quesos', 100)">+ Agregar ($100)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('3 Quesos', 100)">+ Agregar ($100)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="surimi empanizado">
         <div class="dish-head"><span class="dish-title">Surimi Empanizado</span><span class="dish-cost">$100</span></div>
         <p class="dish-note">Surimi por fuera y empanizado.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Surimi Empanizado', 100)">+ Agregar ($100)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Surimi Empanizado', 100)">+ Agregar ($100)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="el mexicano tocino res queso manchego">
         <div class="dish-head"><span class="dish-title">El Mexicano</span><span class="dish-cost">$95</span></div>
         <p class="dish-note">Tocino, res y queso manchego por dentro.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('El Mexicano', 95)">+ Agregar ($95)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('El Mexicano', 95)">+ Agregar ($95)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="misaki bacan empanizado kani cebollin anguila ajonjoli">
         <div class="dish-head"><span class="dish-title">Misaki Bacán</span><span class="dish-cost">$120</span></div>
         <p class="dish-note">Empanizado coronado con ensalada kani, cebollín, salsa de anguila y ajonjolí.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Misaki Bacán', 120)">+ Agregar ($120)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Misaki Bacán', 120)">+ Agregar ($120)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="shiromi empanizado tampico kanikama camaron cebollin ajonjoli chipotle">
-        <div class="dish-head"><span class="dish-title">Shiromi</span><span class="dish-cost">$125</span></div>
+        <div class="dish-head">
+          <div class="dish-title-wrap">
+            <span class="dish-title">Shiromi</span>
+            <span class="dish-tag spicy">Chipotle</span>
+          </div>
+          <span class="dish-cost">$125</span>
+        </div>
         <p class="dish-note">Empanizado coronado con tampico, kanikama, camarón picado, cebollín, ajonjolí y chipotle.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Shiromi', 125)">+ Agregar ($125)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Shiromi', 125)">+ Agregar ($125)</button></div>
       </div>
     </section>
 
@@ -968,73 +1250,91 @@
       <div class="dish-box" data-keywords="philadelphia queso">
         <div class="dish-head"><span class="dish-title">Philadelphia</span><span class="dish-cost">$90</span></div>
         <p class="dish-note">Queso philadelphia por fuera.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Philadelphia Frío', 90)">+ Agregar ($90)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Philadelphia Frío', 90)">+ Agregar ($90)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="philadelphia bacan tampico aguacate anguila ajonjoli">
         <div class="dish-head"><span class="dish-title">Philadelphia Bacán</span><span class="dish-cost">$100</span></div>
         <p class="dish-note">Philadelphia por fuera, ensalada tampico, aguacate, salsa de anguila y ajonjolí.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Philadelphia Bacán', 100)">+ Agregar ($100)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Philadelphia Bacán', 100)">+ Agregar ($100)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="california alga">
         <div class="dish-head"><span class="dish-title">California</span><span class="dish-cost">$100</span></div>
         <p class="dish-note">Alga por fuera.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('California', 100)">+ Agregar ($100)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('California', 100)">+ Agregar ($100)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="california bacan alga tampico pasta frita camaron anguila sriracha">
-        <div class="dish-head"><span class="dish-title">California Bacán</span><span class="dish-cost">$100</span></div>
+        <div class="dish-head">
+          <div class="dish-title-wrap">
+            <span class="dish-title">California Bacán</span>
+            <span class="dish-tag spicy">Sriracha</span>
+          </div>
+          <span class="dish-cost">$100</span>
+        </div>
         <p class="dish-note">Alga por fuera, ensalada tampico, pasta frita, camarón empanizado, salsa de anguila y sriracha.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('California Bacán', 100)">+ Agregar ($100)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('California Bacán', 100)">+ Agregar ($100)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="ajonjoli">
         <div class="dish-head"><span class="dish-title">Ajonjolí</span><span class="dish-cost">$90</span></div>
         <p class="dish-note">Ajonjolí por fuera.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Ajonjolí', 90)">+ Agregar ($90)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Ajonjolí', 90)">+ Agregar ($90)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="avocado aguacate">
         <div class="dish-head"><span class="dish-title">Avocado</span><span class="dish-cost">$100</span></div>
         <p class="dish-note">Aguacate por fuera.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Avocado', 100)">+ Agregar ($100)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Avocado', 100)">+ Agregar ($100)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="salmon">
-        <div class="dish-head"><span class="dish-title">Salmón</span><span class="dish-cost">$120</span></div>
+        <div class="dish-head">
+          <div class="dish-title-wrap">
+            <span class="dish-title">Salmón</span>
+            <span class="dish-tag">Favorito</span>
+          </div>
+          <span class="dish-cost">$120</span>
+        </div>
         <p class="dish-note">Salmón por fuera.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Salmón', 120)">+ Agregar ($120)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Salmón', 120)">+ Agregar ($120)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="surimi">
         <div class="dish-head"><span class="dish-title">Surimi</span><span class="dish-cost">$100</span></div>
         <p class="dish-note">Surimi por fuera.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Surimi', 100)">+ Agregar ($100)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Surimi', 100)">+ Agregar ($100)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="kani-kani philadelphia kanikama camaron queso sriracha anguila">
-        <div class="dish-head"><span class="dish-title">Kani-Kani</span><span class="dish-cost">$135</span></div>
+        <div class="dish-head">
+          <div class="dish-title-wrap">
+            <span class="dish-title">Kani-Kani</span>
+            <span class="dish-tag spicy">Sriracha</span>
+          </div>
+          <span class="dish-cost">$135</span>
+        </div>
         <p class="dish-note">Philadelphia por fuera con ensalada de kanikama, camarón y queso empanizado, sriracha y salsa de anguila.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Kani-Kani', 135)">+ Agregar ($135)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Kani-Kani', 135)">+ Agregar ($135)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="banana king platano macho">
         <div class="dish-head"><span class="dish-title">Banana King</span><span class="dish-cost">$90</span></div>
         <p class="dish-note">Plátano macho por fuera.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Banana King', 90)">+ Agregar ($90)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Banana King', 90)">+ Agregar ($90)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="arcoiris phila salmon masago camaron surimi">
         <div class="dish-head"><span class="dish-title">Arcoíris</span><span class="dish-cost">$120</span></div>
         <p class="dish-note">Phila, salmón, masago, camarón y surimi por fuera.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Arcoíris', 120)">+ Agregar ($120)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Arcoíris', 120)">+ Agregar ($120)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="tricolor phila aguacate surimi">
         <div class="dish-head"><span class="dish-title">Tricolor</span><span class="dish-cost">$95</span></div>
         <p class="dish-note">Phila, aguacate, surimi por fuera.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Tricolor', 95)">+ Agregar ($95)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Tricolor', 95)">+ Agregar ($95)</button></div>
       </div>
     </section>
 
@@ -1050,59 +1350,57 @@
       <div class="dish-box" data-keywords="helado tempura vainilla chocolate mermelada">
         <div class="dish-head"><span class="dish-title">Helado Tempura</span><span class="dish-cost">$70</span></div>
         <p class="dish-note">Panecillo helado y capeado, relleno con helado de vainilla y bañado en chocolate o mermelada.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Helado Tempura', 70)">+ Agregar ($70)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Helado Tempura', 70)">+ Agregar ($70)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="banana vainilla platano macho helado chocolate">
         <div class="dish-head"><span class="dish-title">Banana Vainilla</span><span class="dish-cost">$70</span></div>
         <p class="dish-note">Plátano macho capeado, con helado de vainilla y bañado en chocolate.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Banana Vainilla', 70)">+ Agregar ($70)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Banana Vainilla', 70)">+ Agregar ($70)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="macho tempura platano filadelfia chocolate">
         <div class="dish-head"><span class="dish-title">Macho Tempura</span><span class="dish-cost">$55</span></div>
         <p class="dish-note">Plátano macho capeado, relleno de queso filadelfia y bañado en chocolate.</p>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Macho Tempura', 55)">+ Agregar ($55)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Macho Tempura', 55)">+ Agregar ($55)</button></div>
       </div>
 
       <div class="sub-label">Bebidas</div>
 
       <div class="dish-box" data-keywords="calpico">
         <div class="dish-head"><span class="dish-title">Calpico</span><span class="dish-cost">$25</span></div>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Calpico', 25)">+ Agregar ($25)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Calpico', 25)">+ Agregar ($25)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="calpico 1 lt litro">
         <div class="dish-head"><span class="dish-title">Calpico 1 Lt</span><span class="dish-cost">$45</span></div>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Calpico 1 Lt', 45)">+ Agregar ($45)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Calpico 1 Lt', 45)">+ Agregar ($45)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="jasmine tea te jazmin">
         <div class="dish-head"><span class="dish-title">Jasmine Tea</span><span class="dish-cost">$20</span></div>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Jasmine Tea', 20)">+ Agregar ($20)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Jasmine Tea', 20)">+ Agregar ($20)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="jasmine tea 1 lt litro">
         <div class="dish-head"><span class="dish-title">Jasmine Tea 1 Lt</span><span class="dish-cost">$35</span></div>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Jasmine Tea 1 Lt', 35)">+ Agregar ($35)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Jasmine Tea 1 Lt', 35)">+ Agregar ($35)</button></div>
       </div>
 
       <div class="dish-box" data-keywords="refresco bebida">
         <div class="dish-head"><span class="dish-title">Refresco</span><span class="dish-cost">$20</span></div>
-        <div class="dish-action"><button class="add-dish-btn" onclick="addItem('Refresco', 20)">+ Agregar ($20)</button></div>
+        <div class="dish-action"><button type="button" class="add-dish-btn" onclick="addItem('Refresco', 20)">+ Agregar ($20)</button></div>
       </div>
     </section>
 
     <div id="no-results">No encontramos platillos con esa búsqueda.</div>
 
-    <!-- Publicidad final con espacio para logotipo, servicios ampliados y WhatsApp -->
+    <!-- Publicidad final con contenedor de logotipo ajustado -->
     <div class="ad-banner-pro">
       <div class="ad-badge">Diseño Digital en Vivo</div>
 
-      <!-- Espacio para tu logotipo: reemplaza por <img src="./tu-logo.png" alt="Logo"> cuando lo subas -->
-<!-- Logotipo de Vexa Digital -->
       <div class="ad-logo-box" id="publicity-logo">
-        <img src="./logo-vexa.png" alt="Vexa Digital">
+        <img src="./logo-vexa.png" alt="VEXADIGITAL">
       </div>
 
       <h3 class="title-jp">¿Quieres un Menú Web Así para tu Negocio?</h3>
@@ -1141,19 +1439,60 @@
 
     <footer>
       <p>HANZŌ Jápanese · C. Emiliano Zapata 383, Las Liebres · Tel: 33 4666 2956</p>
-      <p style="margin-top: 0.3rem;">Desarrollado por <a href="https://github.com/VexaDigital" target="_blank">VexaDigital</a></p>
+      <p style="margin-top: 0.3rem;">Desarrollado por <a href="https://github.com/VexaDigital" target="_blank">VEXADIGITAL</a></p>
     </footer>
   </div>
 
   <!-- Barra fija inferior para pedido a domicilio -->
   <div class="cart-bar">
-    <div class="cart-info">
+    <div class="cart-info" onclick="openCartSheet()">
       <strong id="cart-summary">0 platillos · $0</strong>
-      <span>Pedido a domicilio: 33 4666 2956</span>
+      <span>Toca aquí para ver o editar tu pedido</span>
     </div>
     <div class="cart-btns">
-      <button class="btn-clear" onclick="clearCart()">Limpiar</button>
-      <button class="btn-order-wa" onclick="sendCartWhatsApp()">Pedir</button>
+      <button type="button" class="btn-clear" onclick="openCartSheet()">Ver</button>
+      <button type="button" class="btn-order-wa" onclick="sendCartWhatsApp()">Pedir</button>
+    </div>
+  </div>
+
+  <!-- Modal para elegir variantes -->
+  <div class="sheet-backdrop" id="variant-sheet" onclick="closeSheetOnBackdrop(event, 'variant-sheet')">
+    <div class="sheet-card">
+      <div class="sheet-header">
+        <h3 class="title-jp" id="variant-title">Elige una opción</h3>
+        <button type="button" class="close-sheet-btn" onclick="closeSheet('variant-sheet')">Cerrar</button>
+      </div>
+      <div class="option-list" id="variant-options"></div>
+    </div>
+  </div>
+
+  <!-- Modal para gestionar pedido -->
+  <div class="sheet-backdrop" id="cart-sheet" onclick="closeSheetOnBackdrop(event, 'cart-sheet')">
+    <div class="sheet-card">
+      <div class="sheet-header">
+        <h3 class="title-jp">Tu Pedido · HANZŌ</h3>
+        <button type="button" class="close-sheet-btn" onclick="closeSheet('cart-sheet')">Cerrar</button>
+      </div>
+
+      <div id="cart-items-container"></div>
+
+      <input
+        type="text"
+        id="delivery-address-input"
+        class="sheet-field"
+        placeholder="Dirección de entrega o 'Recoger en local'..."
+      />
+      <input
+        type="text"
+        id="order-notes-input"
+        class="sheet-field"
+        placeholder="Notas para cocina (ej. sin aguacate, extra salsa de anguila)..."
+      />
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem; padding-top:0.75rem; border-top:1px solid var(--line-soft);">
+        <button type="button" class="btn-clear" onclick="clearCart()">Vaciar todo</button>
+        <button type="button" class="btn-order-wa" onclick="sendCartWhatsApp()">Enviar a WhatsApp</button>
+      </div>
     </div>
   </div>
 
@@ -1177,14 +1516,62 @@
       });
     }
 
-    // Música japonesa: usa ./hanzo-japan.mp3 si está habilitado, o sintetizador pentatónico japonés en Web Audio API
+    function shareMenuLink() {
+      const shareData = {
+        title: 'HANZŌ Jápanese | Menú Digital',
+        text: 'Mira el menú de HANZŌ Jápanese y arma tu pedido:',
+        url: window.location.href
+      };
+      if (navigator.share) {
+        navigator.share(shareData).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          showToast('Enlace del menú copiado');
+        });
+      }
+    }
+
+    // Estado en vivo de horario (Viernes 19-22h; Sábado y Domingo 15-22h)
+    function updateScheduleStatus() {
+      const pill = document.getElementById('open-status-pill');
+      const label = document.getElementById('open-status-text');
+      if (!pill || !label) return;
+
+      const now = new Date();
+      const day = now.getDay(); // 0=Dom, 5=Vie, 6=Sab
+      const mins = now.getHours() * 60 + now.getMinutes();
+
+      let isOpen = false;
+      if (day === 5 && mins >= 19 * 60 && mins <= 22 * 60) isOpen = true;
+      if ((day === 6 || day === 0) && mins >= 15 * 60 && mins <= 22 * 60) isOpen = true;
+
+      pill.classList.toggle('open', isOpen);
+      pill.classList.toggle('closed', !isOpen);
+      label.textContent = isOpen ? 'Abierto ahora' : 'Fuera de horario';
+    }
+    updateScheduleStatus();
+
+    // Pétalos sutiles
+    (function spawnPetals() {
+      const layer = document.getElementById('sakura-layer');
+      if (!layer) return;
+      for (let i = 0; i < 8; i++) {
+        const p = document.createElement('span');
+        p.className = 'petal';
+        p.style.left = `${(i * 13) % 96}%`;
+        p.style.animationDuration = `${9 + (i % 5) * 2}s`;
+        p.style.animationDelay = `${(i % 4) * 1.6}s`;
+        layer.appendChild(p);
+      }
+    })();
+
+    // Música japonesa
     const mp3El = document.getElementById('local-mp3');
     const audioBtn = document.getElementById('audio-btn');
     let audioCtx = null;
     let melodyTimer = null;
     let soundActive = false;
 
-    // Escala japonesa In / Hirajoshi en Hz para tono atmosférico oriental
     const jpScale = [293.66, 311.13, 392.00, 440.00, 466.16, 587.33, 440.00, 392.00];
     let stepIdx = 0;
 
@@ -1284,14 +1671,51 @@
       });
     }
 
-    // Filtrado por categoría y buscador
+    // Filtrado, navegación por categoría y scroll-spy
     let currentCat = 'all';
+    let isProgrammaticScroll = false;
+
+    function highlightChip(cat) {
+      document.querySelectorAll('.cat-chip').forEach(c => {
+        const active = c.getAttribute('data-cat-chip') === cat;
+        c.classList.toggle('active', active);
+        if (active) {
+          c.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
+      });
+    }
+
+    function scrollToCategorySection(cat) {
+      const stickyBar = document.getElementById('filter-bar');
+      const offset = (stickyBar ? stickyBar.offsetHeight : 96) + 8;
+
+      isProgrammaticScroll = true;
+      setTimeout(() => { isProgrammaticScroll = false; }, 650);
+
+      if (cat === 'all') {
+        const targetBar = stickyBar || document.getElementById('menu-top');
+        if (targetBar) {
+          const topPos = targetBar.getBoundingClientRect().top + window.pageYOffset - 4;
+          window.scrollTo({ top: Math.max(0, topPos), behavior: 'smooth' });
+        }
+        return;
+      }
+
+      const section = document.querySelector(`.menu-sec[data-cat="${cat}"]`);
+      if (section) {
+        const topPos = section.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: Math.max(0, topPos), behavior: 'smooth' });
+      }
+    }
 
     function selectCategory(cat, btn) {
       currentCat = cat;
-      document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
-      if (btn) btn.classList.add('active');
+      highlightChip(cat);
       runFilters();
+
+      requestAnimationFrame(() => {
+        scrollToCategorySection(cat);
+      });
     }
 
     function runFilters() {
@@ -1337,7 +1761,64 @@
       }
     }
 
-    // Pedido rápido para WhatsApp
+    window.addEventListener('scroll', () => {
+      if (isProgrammaticScroll || currentCat !== 'all') return;
+      const stickyBar = document.getElementById('filter-bar');
+      const offset = (stickyBar ? stickyBar.offsetHeight : 96) + 24;
+
+      const visibleSecs = Array.from(document.querySelectorAll('.menu-sec:not(.hide-item)'));
+      for (const sec of visibleSecs) {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top <= offset && rect.bottom > offset) {
+          const catName = sec.getAttribute('data-cat');
+          document.querySelectorAll('.cat-chip').forEach(c => {
+            c.classList.toggle('active', c.getAttribute('data-cat-chip') === catName);
+          });
+          break;
+        }
+      }
+    }, { passive: true });
+
+    // Modales y carrito interactivo
+    function openSheet(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('open');
+    }
+
+    function closeSheet(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('open');
+    }
+
+    function closeSheetOnBackdrop(ev, id) {
+      if (ev.target && ev.target.id === id) {
+        closeSheet(id);
+      }
+    }
+
+    function openVariantPicker(baseName, options) {
+      const titleEl = document.getElementById('variant-title');
+      const listEl = document.getElementById('variant-options');
+      if (!titleEl || !listEl) return;
+
+      titleEl.textContent = baseName;
+      listEl.innerHTML = '';
+
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'option-choice';
+        btn.innerHTML = `<span>${opt.label}</span><strong>$${opt.price}</strong>`;
+        btn.onclick = () => {
+          addItem(`${baseName} · ${opt.label.split(' (')[0]}`, opt.price);
+          closeSheet('variant-sheet');
+        };
+        listEl.appendChild(btn);
+      });
+
+      openSheet('variant-sheet');
+    }
+
     let orderList = [];
 
     function addItem(name, price) {
@@ -1351,9 +1832,20 @@
       showToast(`Agregado: ${name}`);
     }
 
+    function changeQty(idx, delta) {
+      if (!orderList[idx]) return;
+      orderList[idx].qty += delta;
+      if (orderList[idx].qty <= 0) {
+        orderList.splice(idx, 1);
+      }
+      updateCartUI();
+      renderCartSheetItems();
+    }
+
     function clearCart() {
       orderList = [];
       updateCartUI();
+      renderCartSheetItems();
       showToast('Pedido limpiado');
     }
 
@@ -1366,13 +1858,45 @@
       summaryEl.textContent = `${count} ${count === 1 ? 'platillo' : 'platillos'} · $${total}`;
     }
 
+    function renderCartSheetItems() {
+      const box = document.getElementById('cart-items-container');
+      if (!box) return;
+
+      if (orderList.length === 0) {
+        box.innerHTML = '<p style="color:var(--muted); font-size:0.82rem; text-align:center; padding:1rem 0;">Tu pedido está vacío. Agrega platillos del menú.</p>';
+        return;
+      }
+
+      box.innerHTML = orderList.map((item, idx) => `
+        <div class="cart-row">
+          <div>
+            <div style="font-size:0.84rem; font-weight:600; color:var(--ivory);">${item.name}</div>
+            <div style="font-size:0.75rem; color:var(--gold);">$${item.price * item.qty}</div>
+          </div>
+          <div class="qty-controls">
+            <button type="button" class="qty-btn" onclick="changeQty(${idx}, -1)">-</button>
+            <span style="min-width:20px; text-align:center; font-size:0.82rem; font-weight:700;">${item.qty}</span>
+            <button type="button" class="qty-btn" onclick="changeQty(${idx}, 1)">+</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openCartSheet() {
+      renderCartSheetItems();
+      openSheet('cart-sheet');
+    }
+
     function sendCartWhatsApp() {
       if (orderList.length === 0) {
         showToast('Agrega al menos un platillo primero');
         return;
       }
 
-      const lines = ['¡Hola HANZŌ Jápanese! Quisiera pedir a domicilio:'];
+      const addressVal = (document.getElementById('delivery-address-input')?.value || '').trim();
+      const notesVal = (document.getElementById('order-notes-input')?.value || '').trim();
+
+      const lines = ['¡Hola HANZŌ Jápanese! Quisiera hacer este pedido:'];
       let total = 0;
 
       orderList.forEach(item => {
@@ -1382,7 +1906,10 @@
       });
 
       lines.push(`\nTotal aproximado: *$${total}*`);
-      lines.push(`Sucursal: ${hanzoAddress}`);
+      lines.push(`Entrega / Sucursal: ${addressVal || hanzoAddress}`);
+      if (notesVal) {
+        lines.push(`Notas: ${notesVal}`);
+      }
 
       const waUrl = `https://wa.me/${hanzoWhatsapp}?text=${encodeURIComponent(lines.join('\n'))}`;
       window.open(waUrl, '_blank');
