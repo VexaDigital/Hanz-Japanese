@@ -96,40 +96,20 @@
     }
 
     .logo-slot {
-      width: 92px;
-      height: 92px;
-      border-radius: 50%;
-      border: 2px solid var(--gold);
-      background: linear-gradient(145deg, rgba(185, 28, 28, 0.28), rgba(22, 25, 33, 0.95));
-      color: var(--gold-soft);
+      width: 170px;
+      max-width: 60vw;
+      margin: 0 auto 1.1rem;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 1rem;
-      box-shadow: 0 0 28px rgba(223, 177, 75, 0.22);
-      overflow: hidden;
     }
 
     .logo-slot img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .logo-placeholder-kanji {
-      font-family: 'Noto Serif JP', serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      line-height: 1;
-    }
-
-    .logo-placeholder-txt {
-      font-size: 0.52rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-top: 3px;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.55));
     }
 
     .enter-btn {
@@ -876,8 +856,7 @@
   <!-- Pantalla inicial -->
   <div id="intro-curtain">
     <div class="logo-slot" id="intro-logo">
-      <span class="logo-placeholder-kanji">半蔵</span>
-      <span class="logo-placeholder-txt">LOGO</span>
+      <img src="./logo-hanzo.png?v=4" alt="Logo Hanzō Jápanese">
     </div>
 
     <span class="badge-top">Cocina Japonesa</span>
@@ -893,8 +872,7 @@
   <div class="mobile-shell" id="menu-top">
     <header class="hero">
       <div class="logo-slot" id="hero-logo">
-        <span class="logo-placeholder-kanji">半蔵</span>
-        <span class="logo-placeholder-txt">TU LOGO</span>
+        <img src="./logo-hanzo.png?v=4" alt="Logo Hanzō Jápanese">
       </div>
 
       <div>
